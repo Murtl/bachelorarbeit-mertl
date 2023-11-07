@@ -1,0 +1,1 @@
+C:\Users\michi\Repos\bachelorarbeit-mertl\backend\vueapp\obj\Debug\vueapp.esproj.CoreCompileInputs.cache
