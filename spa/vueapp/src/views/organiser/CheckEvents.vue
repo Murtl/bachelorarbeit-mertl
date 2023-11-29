@@ -1,16 +1,17 @@
 <script setup lang="ts">
-//mach einen call an die api und hol dir für die route dummyData die daten über axios get
 import { onMounted, ref } from "vue";
-import axios, { AxiosError } from "axios";
+import {useUserStore} from "@/stores/userStore";
+import ApiService from "@/auth/ApiService";
 
 const test = ref("Initial");
+const userStore = useUserStore();
 
 onMounted(async () => {
   try {
-    test.value = await axios.get("dummy");
+    const response = await ApiService.get("dummy");
+    test.value = response.data;
   } catch (e: any) {
-    const axiosError = JSON.parse((e as AxiosError).request.response);
-    console.log(axiosError);
+    console.log(e);
   }
 });
 </script>

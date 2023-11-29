@@ -1,24 +1,35 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import {msalInstance} from "@/auth/msalConfig";
+import {useUserStore} from "@/stores/userStore";
 
-const test = ref(5);
+const userStore = useUserStore();
+
+async function logout() {
+  try {
+    const logoutRequest = {
+      scopes: ['api://94c3b8ee-37e6-49c2-a05f-a78aa50acc89/Files.read']
+    }
+    await msalInstance.logoutRedirect(logoutRequest);
+  } catch (error) {
+    console.error("Fehler bei der Abmeldung", error);
+  }
+}
 </script>
 
 <template>
   <header>
     <nav>
-      <RouterLink to="/new-events"> Veranstaltungen verwalten </RouterLink>
-      <RouterLink to="/check-events"> Teilnehmerzahlen verwalten </RouterLink>
-      <RouterLink to="/apply-events"> Veranstaltungen buchen </RouterLink>
-      <RouterLink to="/check-applied-events">
+      <RouterLink to="/new-events" v-if="userStore.userRole === 'Task.Create'"> Veranstaltungen verwalten </RouterLink>
+      <RouterLink to="/check-events" v-if="userStore.userRole === 'Task.Create'"> Teilnehmerzahlen verwalten </RouterLink>
+      <RouterLink to="/apply-events" v-if="userStore.userRole === 'Task.Apply'"> Veranstaltungen buchen </RouterLink>
+      <RouterLink to="/check-applied-events" v-if="userStore.userRole === 'Task.Apply'">
         Veranstaltungen ansehen
       </RouterLink>
     </nav>
+    <button @click="logout">Logout</button>
   </header>
 
   <main>
-    <h1>Hello World! {{ test }}</h1>
-    <button @click="test++">Add</button>
     <RouterView />
   </main>
 </template>
