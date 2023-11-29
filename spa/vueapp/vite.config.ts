@@ -31,7 +31,7 @@ export default defineConfig({
     },
     server: {
         proxy: {
-            '^/weatherforecast': {
+            '^/dummy': {
                 target: 'https://localhost:7236/',
                 secure: false
             }

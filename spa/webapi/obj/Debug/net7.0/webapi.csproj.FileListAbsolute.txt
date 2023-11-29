@@ -31,3 +31,4 @@ C:\Users\michi\Repos\bachelorarbeit-mertl\spa\webapi\obj\Debug\net7.0\refint\web
 C:\Users\michi\Repos\bachelorarbeit-mertl\spa\webapi\obj\Debug\net7.0\webapi.pdb
 C:\Users\michi\Repos\bachelorarbeit-mertl\spa\webapi\obj\Debug\net7.0\webapi.genruntimeconfig.cache
 C:\Users\michi\Repos\bachelorarbeit-mertl\spa\webapi\obj\Debug\net7.0\ref\webapi.dll
+C:\Users\michi\Repos\bachelorarbeit-mertl\spa\webapi\obj\Debug\net7.0\webapi.sourcelink.json
