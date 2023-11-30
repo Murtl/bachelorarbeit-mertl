@@ -8,6 +8,11 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: "/",
+      name: "home",
+      component: () => import("../views/HomeView.vue"),
+    },
+    {
       path: "/check-events",
       name: "check-events",
       component: () => import("../views/organiser/CheckEvents.vue"),

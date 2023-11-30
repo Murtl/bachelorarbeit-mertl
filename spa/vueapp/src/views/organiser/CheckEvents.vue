@@ -1,22 +1,56 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import {useUserStore} from "@/stores/userStore";
+import {onMounted, ref, watch} from "vue";
 import ApiService from "@/auth/ApiService";
+import EventSegment from "@/components/EventSegment.vue";
+import {useEventStore} from "@/stores/eventStore";
+import ParticipantsSegment from "@/components/ParticipantsSegment.vue";
 
-const test = ref("Initial");
-const userStore = useUserStore();
+const eventStore = useEventStore();
+const filteredEvents = ref(eventStore.events);
+const eventFilter = ref("");
 
-onMounted(async () => {
-  try {
-    const response = await ApiService.get("dummy");
-    test.value = response.data;
-  } catch (e: any) {
-    console.log(e);
+watch(eventFilter, (newValue) => {
+  if (newValue === "") {
+    filteredEvents.value = eventStore.events;
+  } else {
+    filteredEvents.value = eventStore.events.filter((event) => {
+      return event.name.toLowerCase().includes(newValue.toLowerCase());
+    });
   }
 });
+
+
 </script>
 
 <template>
-  <h1>Check Events</h1>
-  <h2>{{ test }}</h2>
+  <section class="header-section">
+    <BFormInput
+        v-model="eventFilter"
+        placeholder="Filtern nach Event..."
+    />
+  </section>
+  <section class="main-section" v-for="(event, index) in filteredEvents" :key="index">
+    <ParticipantsSegment
+        :id="event.id"
+        :name="event.name"
+        :date="event.date"
+        :time="event.time"
+        :participants="event.participants ?? []"
+    />
+  </section>
 </template>
+
+<style scoped>
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 10px;
+  width: 50%;
+}
+
+.main-section {
+  width: 50%;
+}
+</style>
