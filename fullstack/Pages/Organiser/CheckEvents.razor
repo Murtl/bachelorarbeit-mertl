@@ -1,5 +1,6 @@
-﻿@page "/fetchdata"
+﻿@page "/checkevents"
 @using fullstack.Data
+@attribute [Authorize(Roles = "Task.Create")]
 @inject WeatherForecastService ForecastService
 
 <PageTitle>Weather forecast</PageTitle>
