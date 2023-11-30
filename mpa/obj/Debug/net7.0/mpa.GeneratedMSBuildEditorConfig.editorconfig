@@ -22,8 +22,20 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/michi/Repos/bachelorarbeit-mertl/mpa/Views/Home/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+[C:/Users/michi/Repos/bachelorarbeit-mertl/mpa/Views/Organiser/CheckEvents.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JnYW5pc2VyXENoZWNrRXZlbnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/michi/Repos/bachelorarbeit-mertl/mpa/Views/Organiser/NewEvents.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JnYW5pc2VyXE5ld0V2ZW50cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/michi/Repos/bachelorarbeit-mertl/mpa/Views/Participant/ApplyEvents.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFydGljaXBhbnRcQXBwbHlFdmVudHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/michi/Repos/bachelorarbeit-mertl/mpa/Views/Participant/CheckAppliedEvents.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFydGljaXBhbnRcQ2hlY2tBcHBsaWVkRXZlbnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/michi/Repos/bachelorarbeit-mertl/mpa/Views/Shared/Error.cshtml]

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("mpa")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4f864ae4d17fbf2d60ffd2523f134effd7dd6013")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6da1173c949215a5d16dc38f49e930ffcd486419")]
 [assembly: System.Reflection.AssemblyProductAttribute("mpa")]
 [assembly: System.Reflection.AssemblyTitleAttribute("mpa")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
