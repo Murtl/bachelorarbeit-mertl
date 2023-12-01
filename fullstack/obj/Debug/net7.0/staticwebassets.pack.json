@@ -49,6 +49,10 @@
       "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.woff"
     },
     {
+      "Id": "C:\\Users\\michi\\Repos\\bachelorarbeit-mertl\\fullstack\\wwwroot\\css\\ownStlyes.css",
+      "PackagePath": "staticwebassets\\css\\ownStlyes.css"
+    },
+    {
       "Id": "C:\\Users\\michi\\Repos\\bachelorarbeit-mertl\\fullstack\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

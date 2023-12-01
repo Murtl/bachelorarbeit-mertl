@@ -66,3 +66,5 @@ C:\Users\michi\Repos\bachelorarbeit-mertl\fullstack\bin\Debug\net7.0\runtimes\wi
 C:\Users\michi\Repos\bachelorarbeit-mertl\fullstack\obj\Debug\net7.0\fullstack.csproj.AssemblyReference.cache
 C:\Users\michi\Repos\bachelorarbeit-mertl\fullstack\obj\Debug\net7.0\fullstack.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\michi\Repos\bachelorarbeit-mertl\fullstack\obj\Debug\net7.0\fullstack.csproj.CopyComplete
+C:\Users\michi\Repos\bachelorarbeit-mertl\fullstack\bin\Debug\net7.0\Database\Events.json
+C:\Users\michi\Repos\bachelorarbeit-mertl\fullstack\bin\Debug\net7.0\Newtonsoft.Json.dll

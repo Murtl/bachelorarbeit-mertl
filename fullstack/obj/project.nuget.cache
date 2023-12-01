@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "65TNrgUqtErDGwJ0sDPphm96I6318Trf4JgHUyYeajpjQJ26oZrln9uqgchkHIstyIUjlwJaktzV7vUKjpcAMQ==",
+  "dgSpecHash": "6Ei/kEnKufAugjODI0aXPuDGz6mlt5lX7yF8vG85HZvQ1XY01HL4Hhv05IaixIge3vuMsJOPOyieD2gcrq7Sng==",
   "success": true,
   "projectFilePath": "C:\\Users\\michi\\Repos\\bachelorarbeit-mertl\\fullstack\\fullstack.csproj",
   "expectedPackageFiles": [
@@ -47,6 +47,7 @@
     "C:\\Users\\michi\\.nuget\\packages\\microsoft.identitymodel.tokens\\7.0.3\\microsoft.identitymodel.tokens.7.0.3.nupkg.sha512",
     "C:\\Users\\michi\\.nuget\\packages\\microsoft.identitymodel.validators\\7.0.3\\microsoft.identitymodel.validators.7.0.3.nupkg.sha512",
     "C:\\Users\\michi\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
+    "C:\\Users\\michi\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\michi\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.1\\system.diagnostics.diagnosticsource.6.0.1.nupkg.sha512",
     "C:\\Users\\michi\\.nuget\\packages\\system.formats.asn1\\7.0.0\\system.formats.asn1.7.0.0.nupkg.sha512",
     "C:\\Users\\michi\\.nuget\\packages\\system.identitymodel.tokens.jwt\\7.0.3\\system.identitymodel.tokens.jwt.7.0.3.nupkg.sha512",

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "GePpTglml8HlvIla+Kz+0uf1gO8OG8oyFAB/lL92f6I=",
+  "Hash": "e3aSHnmbgTqixrnFmgb17Vahdq80Pjpa+pbInr8u1XI=",
   "Source": "fullstack",
   "BasePath": "_content/fullstack",
   "Mode": "Default",
@@ -262,6 +262,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\README.md"
+    },
+    {
+      "Identity": "C:\\Users\\michi\\Repos\\bachelorarbeit-mertl\\fullstack\\wwwroot\\css\\ownStlyes.css",
+      "SourceId": "fullstack",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\michi\\Repos\\bachelorarbeit-mertl\\fullstack\\wwwroot\\",
+      "BasePath": "_content/fullstack",
+      "RelativePath": "css/ownStlyes.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\ownStlyes.css"
     },
     {
       "Identity": "C:\\Users\\michi\\Repos\\bachelorarbeit-mertl\\fullstack\\wwwroot\\css\\site.css",

@@ -1,20 +1,149 @@
 ﻿@page "/newevents"
 @attribute [Authorize(Roles = "Task.Create")]
+@using fullstack.Typen
+@using fullstack.Services
+@inject EventService EventService
 
-<PageTitle>Counter</PageTitle>
+<PageTitle>NewEvents</PageTitle>
 
-<h1>Counter</h1>
+<link href="css/ownStlyes.css" rel="stylesheet" />
 
-<p role="status">Current count: @currentCount</p>
+<section class="events-section">
+    <section class="searchbar-section">
+        <input type="text" class="search-input" placeholder="Veranstaltung suchen..." @bind="searchTerm"/>
+        <button class="btn btn-primary" @onclick="FilterEvents">Suchen</button>
+        <button class="btn btn-primary" @onclick="OpenModal">+</button>
+    </section>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+    @foreach (var evt in filteredEvents)
+      {
+          <div class="event-wrapper">
+              <section class="header-section">
+                <span class="event-name">@evt.Name</span>
+                    <div class="right-header-section">
+                        <span>@evt.Date</span>
+                        <span>@evt.Time</span>
+                        <button class="btn btn-danger btn-sm" @onclick="() => RemoveEvent(evt.Id)">-</button>
+                    </div>
+              </section>
+              <section class="decribe-section">
+                  @evt.Description
+              </section>
+         </div>
+      }
+</section>
+
+<ModalBootstrap @ref="@ModalBootstrap" Title="Event hinzufügen">
+    <div class="modal-wrapper">
+        <div class="modal-row">
+            <label for="eventName">Veranstaltungsname*:</label>
+            <input type="text" id="eventName" placeholder="Veranstaltungsname eingeben..." class="input-field" @bind="newEvent.Name"/>
+        </div>
+
+        <div class="modal-row">
+            <label for="eventDate">Veranstaltungsdatum*:</label>
+            <input type="text" id="eventDate" placeholder="Veranstaltungsdatum eingeben..." class="input-field" @bind="newEvent.Date" />
+        </div>
+
+        <div class="modal-row">
+            <label for="eventTime">Veranstaltungsuhrzeit*:</label>
+            <input type="text" id="eventTime" placeholder="Veranstaltungsuhrzeit eingeben..." class="input-field" @bind="newEvent.Time" />
+        </div>
+
+         <div class="modal-row">
+            <label for="eventDescription">Veranstaltungsbeschreibung:</label>
+            <textarea id="eventDescription" placeholder="Veranstaltungsbeschreibung eingeben..." class="input-field" @bind="newEvent.Description"></textarea>
+        </div>
+
+        <div class="modal-row-button">
+            <button class="btn btn-primary" @onclick="AddEvent">Hinzufügen</button>
+        </div>
+    </div>
+</ModalBootstrap>
 
 @code {
-    private int currentCount = 0;
+    private List<Event> events = new List<Event>();
+    private List<Event> filteredEvents = new List<Event>();
+    private string searchTerm = "";
+    private ModalBootstrap ModalBootstrap { get; set; }
+    private Event newEvent { get; set; } = new Event{
+        Id = Guid.NewGuid().ToString(),
+        Name = "",
+        Date = "",
+        Time = "",
+        Description = "",
+        Participants = new List<string>()
+    };
 
-    private void IncrementCount()
+    protected override async Task OnInitializedAsync()
     {
-        currentCount++;
+        try
+        {
+            var result = await EventService.GetAllEvents();
+            events = result.ToList();
+            filteredEvents = events;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+
+    private void OpenModal()
+    {
+        newEvent.Name = "";
+        newEvent.Date = "";
+        newEvent.Time = "";
+        newEvent.Description = "";
+        ModalBootstrap.Open();
+    }
+
+    private void FilterEvents()
+    {
+        if (string.IsNullOrEmpty(searchTerm))
+        {
+            // Wenn der Suchbegriff leer ist, zeige alle Veranstaltungen an
+            filteredEvents = events;
+        }
+        else
+        {
+            // Ansonsten filtere die Veranstaltungen nach dem Suchbegriff
+            filteredEvents = events.Where(e => e.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
+        }
+    }
+
+    private async Task AddEvent()
+    {
+        try
+        {
+            await EventService.AddEvent(newEvent);
+            events = (await EventService.GetAllEvents()).ToList();
+            FilterEvents();
+            newEvent.Id = Guid.NewGuid().ToString();
+            newEvent.Name = "";
+            newEvent.Date = "";
+            newEvent.Time = "";
+            newEvent.Description = "";
+            ModalBootstrap.Close();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+
+    private async Task RemoveEvent(string eventId)
+    {
+        try
+        {
+            await EventService.RemoveEvent(eventId);
+            events = (await EventService.GetAllEvents()).ToList();
+            FilterEvents();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
 }
 

@@ -1,4 +1,4 @@
-using fullstack.Data;
+using fullstack.Services;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
@@ -18,8 +18,8 @@ builder.Services.AddAuthorization(options =>
 });
 
 builder.Services.AddRazorPages();
-builder.Services.AddServerSideBlazor().AddMicrosoftIdentityConsentHandler(); ;
-builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddServerSideBlazor().AddMicrosoftIdentityConsentHandler();
+builder.Services.AddScoped<EventService>();
 
 var app = builder.Build();
 

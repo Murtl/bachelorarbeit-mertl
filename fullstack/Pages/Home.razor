@@ -1,21 +1,26 @@
 ﻿@page "/"
+@attribute [Authorize]
 
 <PageTitle>Index</PageTitle>
 
-<h1>Herzlich Willkommen bei dem Schulungsportal der Schalk Maschinen GmbH!</h1>
+<link href="css/ownStlyes.css" rel="stylesheet" />
 
-<AuthorizeView Roles="Task.Create">
-    <Authorized>
-        <div>
-            <p>Als Organisator können Sie hier neue Veranstaltungen erstellen und Teilnehmerzahlen ansehen.</p>
-        </div>
-    </Authorized>
-</AuthorizeView>
+<section class="events-section">
+    <h3>Herzlich Willkommen bei dem Schulungsportal der Schalk Maschinen GmbH!</h3>
 
-<AuthorizeView Roles="Task.Apply">
-    <Authorized>
-        <div>
-            <p>Als Teilnehmer können Sie hier Veranstaltungen buchen und ansehen.</p>
-        </div>
-    </Authorized>
-</AuthorizeView>
+    <AuthorizeView Roles="Task.Create">
+        <Authorized>
+            <div>
+                <p>Als Organisator können Sie hier neue Veranstaltungen erstellen und Teilnehmerzahlen ansehen.</p>
+            </div>
+        </Authorized>
+    </AuthorizeView>
+
+    <AuthorizeView Roles="Task.Apply">
+        <Authorized>
+            <div>
+                <p>Als Teilnehmer können Sie hier Veranstaltungen buchen und ansehen.</p>
+            </div>
+        </Authorized>
+    </AuthorizeView>
+</section>

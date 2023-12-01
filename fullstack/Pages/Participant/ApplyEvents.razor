@@ -1,10 +1,103 @@
 ﻿@page "/applyevents"
 @attribute [Authorize(Roles = "Task.Apply")]
+@using fullstack.Typen
+@using fullstack.Services
+@inject EventService EventService
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
+<PageTitle>ApplyEvents</PageTitle>
 
-<PageTitle>Index</PageTitle>
+<link href="css/ownStlyes.css" rel="stylesheet" />
 
-<h1>Hello, world!</h1>
+<section class="events-section">
+    <section class="searchbar-section">
+        <input type="text" class="search-input" placeholder="Veranstaltung suchen..." @bind="searchTerm" />
+        <button class="btn btn-primary" @onclick="FilterEvents">Suchen</button>
+    </section>
 
-Welcome to your new app.
+    @foreach (var evt in filteredEvents)
+    {
+        <div class="event-wrapper">
+            <section class="header-section">
+                <span class="event-name">@evt.Name</span>
+                <div class="right-header-section">
+                    <span>@evt.Date</span>
+                    <span>@evt.Time</span>
+                    <button class="btn btn-primary btn-sm" @onclick="() => ApplyForEvent(evt.Id)">+</button>
+                </div>
+            </section>
+            <section class="decribe-section">
+                @evt.Description
+            </section>
+        </div>
+    }
+</section>
+
+<ModalBootstrap @ref="@ModalBootstrap" Title="Fehlermeldung">
+    <div class="modal-wrapper">
+        <div class="modal-row">
+            @alertMessage
+        </div>
+
+        <div class="modal-row-button">
+            <button class="btn btn-danger" @onclick="() => ModalBootstrap.Close()">Schließen</button>
+        </div>
+    </div>
+</ModalBootstrap>
+
+@code {
+    private List<EventsWithoutParticipants> events = new List<EventsWithoutParticipants>();
+    private List<EventsWithoutParticipants> filteredEvents = new List<EventsWithoutParticipants>();
+    private string searchTerm = "";
+    private string alertMessage = "";
+    private ModalBootstrap ModalBootstrap { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var result = await EventService.GetEventsWithoutParticipants();
+            events = result.ToList();
+            filteredEvents = events;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+
+    private void FilterEvents()
+    {
+        if (string.IsNullOrEmpty(searchTerm))
+        {
+            // Wenn der Suchbegriff leer ist, zeige alle Veranstaltungen an
+            filteredEvents = events;
+        }
+        else
+        {
+            // Ansonsten filtere die Veranstaltungen nach dem Suchbegriff
+            filteredEvents = events.Where(e => e.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
+        }
+    }
+
+    private async Task ApplyForEvent(string eventId)
+    {
+        try
+        {
+            var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authenticationState.User;
+
+            // Hier kannst du auf die Benutzerinformationen zugreifen
+            var userName = user.Identity.Name;
+
+            await EventService.AddParticipant(eventId, userName);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            alertMessage = "Sie sind bereits an dieser Veranstaltung angemeldet!";
+            ModalBootstrap.Open();
+        }
+    }
+}
 
