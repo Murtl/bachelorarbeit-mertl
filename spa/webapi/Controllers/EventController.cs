@@ -213,8 +213,18 @@ public class EventController : ControllerBase
             // Filtere die Events für den angegebenen Participant
             var eventsForParticipant = events.Where(e => e.Participants.Contains(participantName)).ToList();
 
-            // Gib die gefilterten Events zurück
-            return Ok(eventsForParticipant);
+            // Projiziere die Events auf eine neue Klasse ohne das Feld Participants
+            var eventsWithoutParticipants = eventsForParticipant.Select(e => new EventWithoutParticipants
+            {
+                Id = e.Id,
+                Name = e.Name,
+                Date = e.Date,
+                Time = e.Time,
+                Description = e.Description
+            }).ToArray();
+
+            // Gib die Events als HTTP GET-Antwort zurück
+            return Ok(eventsWithoutParticipants);
         }
         catch (Exception ex)
         {
