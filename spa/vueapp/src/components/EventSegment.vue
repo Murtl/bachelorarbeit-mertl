@@ -13,6 +13,11 @@ interface Props{
 
 defineProps<Props>();
 
+interface Emits{
+  (event: "removeParticipant", id: string): void;
+}
+const emit = defineEmits<Emits>();
+
 const eventStore = useEventStore();
 const userStore = useUserStore();
 </script>
@@ -26,6 +31,7 @@ const userStore = useUserStore();
         <span class="event-time">{{time}}</span>
         <BButton size="sm" variant="primary" v-if="buttonType === 'Add'" @click="eventStore.addParticipant(id, userStore.userName)">+</BButton>
         <BButton size="sm" variant="danger" v-if="buttonType === 'Delete'" @click="eventStore.removeEvent(id)">-</BButton>
+        <BButton size="sm" variant="danger" v-if="buttonType === 'Remove'" @click="emit('removeParticipant', id)">-</BButton>
       </div>
     </section>
     <section class="describe-section">

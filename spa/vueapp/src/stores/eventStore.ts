@@ -12,7 +12,16 @@ export const useEventStore = defineStore('eventStore', () => {
 
     async function getEvents() {
         try {
-            const response = await ApiService.get("/api/Event");
+            const response = await ApiService.get("/api/Event/GetAllEvents");
+            events.value = response.data;
+        } catch (e: any) {
+            console.log(e);
+        }
+    }
+
+    async function getEventsWithoutParticipants() {
+        try {
+            const response = await ApiService.get("/api/Event/GetEventsWithoutParticipants");
             events.value = response.data;
         } catch (e: any) {
             console.log(e);
@@ -44,8 +53,10 @@ export const useEventStore = defineStore('eventStore', () => {
             if (event) {
                 event.participants?.push(participant)
             }
+            alert("Du wurdest erfolgreich angemeldet!");
         } catch (e: any) {
             console.log(e);
+            alert("Du bist bereits angemeldet!");
         }
     }
 
@@ -59,5 +70,14 @@ export const useEventStore = defineStore('eventStore', () => {
         return events.value.filter(event => event.participants?.includes(participant))
     }
 
-    return { events, addEvent, removeEvent, getEvents, addParticipant, getEventsOfParticipant }
+    async function removeParticipant(eventId: string, participant: string) {
+        try {
+            await ApiService.delete(`/api/Event/${eventId}/RemoveParticipant`, { data: participant });
+            alert("Du wurdest erfolgreich abgemeldet!");
+        } catch (e: any) {
+            console.log(e);
+        }
+    }
+
+    return { events, addEvent, removeEvent, getEvents, addParticipant, getEventsOfParticipant, removeParticipant, getEventsWithoutParticipants }
 })

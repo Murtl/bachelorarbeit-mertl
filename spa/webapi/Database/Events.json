@@ -33,7 +33,8 @@
     "Participants": [
       "Jonas",
       "Michael",
-      "Markus"
+      "Markus",
+      "mertl.user1@xitasocerberus.onmicrosoft.com"
     ]
   },
   {
@@ -45,7 +46,16 @@
     "Participants": [
       "Wiglef",
       "Jan",
-      "Peter",
+      "Peter"
+    ]
+  },
+  {
+    "Id": "893cb195-d5db-4cd8-8369-6cd5861f39c5",
+    "Name": "UI Schulung",
+    "Date": "25.09.2024",
+    "Time": "15:00",
+    "Description": "Schulung über verschiedene User Interfaces",
+    "Participants": [
       "mertl.user1@xitasocerberus.onmicrosoft.com"
     ]
   }

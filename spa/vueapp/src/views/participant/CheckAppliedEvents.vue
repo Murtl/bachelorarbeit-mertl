@@ -14,6 +14,13 @@ onBeforeMount(async () => {
   appliedEvents.value = await eventStore.getEventsOfParticipant(userStore.userName);
 })
 
+async function removeParticipantFromEvent(eventId: string) {
+  await eventStore.removeParticipant(eventId, userStore.userName);
+  appliedEvents.value = appliedEvents.value.filter((event) => {
+    return event.id !== eventId;
+  });
+}
+
 </script>
 
 <template>
@@ -25,6 +32,8 @@ onBeforeMount(async () => {
         :date="event.date"
         :time="event.time"
         :description="event.description"
+        button-type="Remove"
+        @remove-participant="removeParticipantFromEvent"
     />
   </section>
 </template>

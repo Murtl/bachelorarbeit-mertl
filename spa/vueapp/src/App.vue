@@ -3,6 +3,7 @@ import {msalInstance} from "@/auth/msalConfig";
 import {useUserStore} from "@/stores/userStore";
 import {onMounted} from "vue";
 import {useEventStore} from "@/stores/eventStore";
+import router from "@/routes";
 
 const eventStore = useEventStore();
 
@@ -15,7 +16,12 @@ onMounted(async () => {
       userStore.userRole = cookieAccounts[0].idTokenClaims.roles[0];
       userStore.loggedIn = true;
       userStore.userName = cookieAccounts[0].username;
-      await eventStore.getEvents();
+      if(userStore.userRole === 'Task.Create'){
+        await eventStore.getEvents();
+      } else if(userStore.userRole === 'Task.Apply') {
+        await eventStore.getEventsWithoutParticipants();
+      }
+      await router.push('/');
   } else {
     userStore.loggedIn = false;
     userStore.userRole = '';
@@ -34,7 +40,12 @@ async function login() {
     if('roles' in response.idTokenClaims && Array.isArray(response.idTokenClaims.roles)) {
       userStore.userRole = response.idTokenClaims.roles[0];
     }
-    await eventStore.getEvents();
+    if(userStore.userRole === 'Task.Create'){
+      await eventStore.getEvents();
+    } else if(userStore.userRole === 'Task.Apply') {
+      await eventStore.getEventsWithoutParticipants();
+    }
+    await router.push('/');
   } catch (error) {
     console.error("Fehler bei der Anmeldung", error);
   }
@@ -65,7 +76,7 @@ async function logout() {
           <BNavbarNav class="mx-auto">
             <BNavItem to="/">Home</BNavItem>
                     <BNavItem to="/new-events" v-if="userStore.userRole === 'Task.Create'">Veranstaltung erstellen</BNavItem>
-                    <BNavItem to="/check-events" v-if="userStore.userRole === 'Task.Create'">Teilnehmerzahlen ansehen</BNavItem>
+                    <BNavItem to="/check-events" v-if="userStore.userRole === 'Task.Create'">Teilnehmer ansehen</BNavItem>
                     <BNavItem to="/apply-events" v-if="userStore.userRole === 'Task.Apply'">Veranstaltung buchen</BNavItem>
                     <BNavItem to="/check-applied-events" v-if="userStore.userRole === 'Task.Apply'">
                       Veranstaltungen ansehen
