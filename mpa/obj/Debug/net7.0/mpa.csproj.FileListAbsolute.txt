@@ -65,3 +65,5 @@ C:\Users\michi\Repos\bachelorarbeit-mertl\mpa\obj\Debug\net7.0\mpa.csproj.Assemb
 C:\Users\michi\Repos\bachelorarbeit-mertl\mpa\obj\Debug\net7.0\mpa.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\michi\Repos\bachelorarbeit-mertl\mpa\obj\Debug\net7.0\mpa.sourcelink.json
 C:\Users\michi\Repos\bachelorarbeit-mertl\mpa\obj\Debug\net7.0\mpa.csproj.CopyComplete
+C:\Users\michi\Repos\bachelorarbeit-mertl\mpa\bin\Debug\net7.0\Database\Events.json
+C:\Users\michi\Repos\bachelorarbeit-mertl\mpa\bin\Debug\net7.0\Newtonsoft.Json.dll

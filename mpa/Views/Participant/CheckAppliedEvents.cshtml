@@ -1,7 +1,45 @@
-﻿@{
+﻿@model IEnumerable<EventModel>
+
+@{
     ViewData["Title"] = "Check Applied Events";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Check Applied Events</h1>
-</div>
+<link href="~/css/ownStyles.css" rel="stylesheet" />
+
+<section class="events-section">
+    <h4>Hier sind alle deine bevorstehenden Veranstaltungen zu sehen!</h4>
+
+    @foreach (var evt in ViewData["EventData"] as IEnumerable<EventModel> ?? Enumerable.Empty<EventModel>())
+    {
+        <div class="event-wrapper">
+            <section class="header-section">
+                <span class="event-name">@evt.Name</span>
+                <div class="right-header-section">
+                    <span>@evt.Date</span>
+                    <span>@evt.Time</span>
+                    <button class="btn btn-danger btn-sm" onclick="removeParticipant('@evt.Id')">-</button>
+                </div>
+            </section>
+            <section class="decribe-section">
+                @evt.Description
+            </section>
+        </div>
+    }
+</section>
+
+<script>
+    function removeParticipant(eventId) {
+        $.ajax({
+            type: "DELETE",
+            url: "/Participant/RemoveParticipant",
+            data: { eventId: eventId },
+            success: function (data) {
+                alert("Erfolgreich für die Veranstaltung abgemeldet!");
+                location.href = location.href;
+            },
+            error: function (data) {
+                alert("Teilnehmer konnte nicht entfernt werden!");
+            }
+        });
+    }
+</script>

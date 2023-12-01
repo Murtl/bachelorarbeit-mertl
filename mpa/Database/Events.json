@@ -1,0 +1,60 @@
+[
+  {
+    "Id": "1",
+    "Name": "Sicherheitschulung",
+    "Date": "30.12.2023",
+    "Time": "14:00",
+    "Description": "Die alljährlicher Sicherheitschulung",
+    "Participants": [
+      "Max",
+      "Moritz",
+      "Erika",
+      "mertl.user1@xitasocerberus.onmicrosoft.com"
+    ]
+  },
+  {
+    "Id": "2",
+    "Name": "Was ist Scrum? (Workshop)",
+    "Date": "05.01.2024",
+    "Time": "10:00",
+    "Description": "Einführung in unsere agile Arbeitsweise mit Scrum",
+    "Participants": [
+      "Jan",
+      "Josef",
+      "Maria"
+    ]
+  },
+  {
+    "Id": "3",
+    "Name": "Datenschutzschulung",
+    "Date": "10.01.2024",
+    "Time": "15:00",
+    "Description": "Schulung zum Thema Datenschutz",
+    "Participants": [
+      "Jonas",
+      "Michael",
+      "Markus",
+      "mertl.user1@xitasocerberus.onmicrosoft.com"
+    ]
+  },
+  {
+    "Id": "4",
+    "Name": "Arbeitssicherheitsschulung",
+    "Date": "15.01.2024",
+    "Time": "09:00",
+    "Description": "Schulung zum Umgang mit den Maschinen während der Arbeit",
+    "Participants": [
+      "Wiglef",
+      "Jan",
+      "Peter"
+    ]
+  },
+  {
+    "Id": "893cb195-d5db-4cd8-8369-6cd5861f39c5",
+    "Name": "UI Schulung",
+    "Date": "25.09.2024",
+    "Time": "15:00",
+    "Description": "Schulung über verschiedene User Interfaces",
+    "Participants": []
+  }
+]

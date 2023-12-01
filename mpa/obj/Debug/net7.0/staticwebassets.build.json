@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "JRqQjsYQsSu79OiJr079cVuvr/eEgtwCjgPaWL1S038=",
+  "Hash": "bGsio6CtAbCGmDoZQRbzFIzlLsQwgDi2N6z8N/5Og0g=",
   "Source": "mpa",
   "BasePath": "_content/mpa",
   "Mode": "Default",
@@ -53,6 +53,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\michi\\Repos\\bachelorarbeit-mertl\\mpa\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\mpa.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\michi\\Repos\\bachelorarbeit-mertl\\mpa\\wwwroot\\css\\ownStyles.css",
+      "SourceId": "mpa",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\michi\\Repos\\bachelorarbeit-mertl\\mpa\\wwwroot\\",
+      "BasePath": "_content/mpa",
+      "RelativePath": "css/ownStyles.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\ownStyles.css"
     },
     {
       "Identity": "C:\\Users\\michi\\Repos\\bachelorarbeit-mertl\\mpa\\wwwroot\\css\\site.css",

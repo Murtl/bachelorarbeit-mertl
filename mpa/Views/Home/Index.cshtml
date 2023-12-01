@@ -3,5 +3,13 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Herzlich Willkommen auf dem Schulungsportal der Schalk Maschinen GmbH</h1>
+    <h4>Herzlich Willkommen auf dem Schulungsportal der Schalk Maschinen GmbH</h4>
+    @if (User.IsInRole("Task.Create"))
+    {
+        <p>Als Organisator können Sie hier neue Veranstaltungen erstellen und Teilnehmerzahlen ansehen.</p>
+    }
+    @if (User.IsInRole("Task.Apply"))
+    {
+        <p>Als Teilnehmer können Sie hier Veranstaltungen buchen und ansehen.</p>
+    }
 </div>

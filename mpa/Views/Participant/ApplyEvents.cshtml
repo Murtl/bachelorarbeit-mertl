@@ -1,7 +1,71 @@
-﻿@{
+﻿@model IEnumerable<EventModel>
+
+@{
     ViewData["Title"] = "Apply Events";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Apply Events</h1>
-</div>
+<link href="~/css/ownStyles.css" rel="stylesheet" />
+
+<section class="events-section">
+    <section class="searchbar-section">
+        <input type="text" class="search-input" id="searchInput" placeholder="Veranstaltung suchen..." />
+        <button class="btn btn-primary" onclick="filterEvents()">Suchen</button>
+    </section>
+
+    @foreach (var evt in ViewData["EventData"] as IEnumerable<EventModel> ?? Enumerable.Empty<EventModel>())
+        {
+            <div class="event-wrapper">
+                <section class="header-section">
+                    <span class="event-name">@evt.Name</span>
+                    <div class="right-header-section">
+                        <span>@evt.Date</span>
+                        <span>@evt.Time</span>
+                        <button class="btn btn-primary btn-sm" onclick="addParticipant('@evt.Id')">+</button>
+                    </div>
+                </section>
+                <section class="decribe-section">
+                    @evt.Description
+                </section>
+            </div>
+        }
+</section>
+
+<script>
+    const inputField = document.getElementById("searchInput");
+
+    inputField.addEventListener("keyup", function (event) {
+        if (event.key === "Enter") {
+            filterEvents();
+        }
+    });
+
+    function addParticipant(eventId) {
+        $.ajax({
+            type: "POST",
+            url: "/Participant/AddParticipant",
+            data: { eventId: eventId },
+            success: function (data) {
+                alert("Erfolgreich für die Veranstaltung angemeldet!");
+            },
+            error: function (data) {
+                alert("Teilnehmer ist bereits für diese Veranstaltung angemeldet!");
+            }
+        });
+    }
+
+    function filterEvents() {
+        let input, filter, events, eventWrapper, eventName, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        events = document.getElementsByClassName("event-wrapper");
+        for (i = 0; i < events.length; i++) {
+            eventWrapper = events[i].getElementsByClassName("event-name")[0];
+            eventName = eventWrapper.textContent || eventWrapper.innerText;
+            if (eventName.toUpperCase().indexOf(filter) > -1) {
+                events[i].style.display = "";
+            } else {
+                events[i].style.display = "none";
+            }
+        }
+    }
+</script>
