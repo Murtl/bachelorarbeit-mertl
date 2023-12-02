@@ -2,7 +2,7 @@
 @attribute [Authorize(Roles = "Task.Apply")]
 @using fullstack.Typen
 @using fullstack.Services
-@inject EventService EventService
+@inject ParticipantService ParticipantService
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>CheckAppliedEvents</PageTitle>
@@ -43,7 +43,7 @@
 </ModalBootstrap>
 
 @code {
-    private List<EventsWithoutParticipants> events = new List<EventsWithoutParticipants>();
+    private List<Event> events = new List<Event>();
     private string searchTerm = "";
     private string alertMessage = "";
     private ModalBootstrap ModalBootstrap { get; set; }
@@ -58,7 +58,7 @@
             // Hier kannst du auf die Benutzerinformationen zugreifen
             var userName = user.Identity.Name;
 
-            var result = await EventService.GetEventsByParticipant(userName);
+            var result = await ParticipantService.GetEventsByParticipant(userName);
             events = result.ToList();
         }
         catch (Exception ex)
@@ -77,8 +77,8 @@
             // Hier kannst du auf die Benutzerinformationen zugreifen
             var userName = user.Identity.Name;
 
-            await EventService.RemoveParticipant(eventId, userName);
-            var result = await EventService.GetEventsByParticipant(userName);
+            await ParticipantService.RemoveParticipant(eventId, userName);
+            var result = await ParticipantService.GetEventsByParticipant(userName);
             events = result.ToList();
             alertMessage = "Sie sind haben sich erfolgreich von der Veranstaltung abgemeldet!";
             ModalBootstrap.Open();

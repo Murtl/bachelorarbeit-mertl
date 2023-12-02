@@ -2,7 +2,7 @@
 @attribute [Authorize(Roles = "Task.Apply")]
 @using fullstack.Typen
 @using fullstack.Services
-@inject EventService EventService
+@inject ParticipantService ParticipantService
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>ApplyEvents</PageTitle>
@@ -33,30 +33,31 @@
     }
 </section>
 
-<ModalBootstrap @ref="@ModalBootstrap" Title="Fehlermeldung">
+<ModalBootstrap @ref="@ModalBootstrap" Title="@alertTitle">
     <div class="modal-wrapper">
         <div class="modal-row">
             @alertMessage
         </div>
 
         <div class="modal-row-button">
-            <button class="btn btn-danger" @onclick="() => ModalBootstrap.Close()">Schließen</button>
+            <button class="btn btn-secondary" @onclick="() => ModalBootstrap.Close()">Schließen</button>
         </div>
     </div>
 </ModalBootstrap>
 
 @code {
-    private List<EventsWithoutParticipants> events = new List<EventsWithoutParticipants>();
-    private List<EventsWithoutParticipants> filteredEvents = new List<EventsWithoutParticipants>();
+    private List<Event> events = new List<Event>();
+    private List<Event> filteredEvents = new List<Event>();
     private string searchTerm = "";
     private string alertMessage = "";
+    private string alertTitle = "";
     private ModalBootstrap ModalBootstrap { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            var result = await EventService.GetEventsWithoutParticipants();
+            var result = await ParticipantService.GetEventsWithoutParticipants();
             events = result.ToList();
             filteredEvents = events;
         }
@@ -90,11 +91,15 @@
             // Hier kannst du auf die Benutzerinformationen zugreifen
             var userName = user.Identity.Name;
 
-            await EventService.AddParticipant(eventId, userName);
+            await ParticipantService.AddParticipant(eventId, userName);
+            alertTitle = "Hinweis";
+            alertMessage = "Sie haben sich erfolgreich für die Veranstaltung angemeldet!!";
+            ModalBootstrap.Open();
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
+            alertTitle = "Fehlermeldung";
             alertMessage = "Sie sind bereits an dieser Veranstaltung angemeldet!";
             ModalBootstrap.Open();
         }

@@ -2,7 +2,7 @@
 @attribute [Authorize(Roles = "Task.Create")]
 @using fullstack.Typen
 @using fullstack.Services
-@inject EventService EventService
+@inject OrganiserService OrganiserService
 
 <PageTitle>NewEvents</PageTitle>
 
@@ -79,7 +79,7 @@
     {
         try
         {
-            var result = await EventService.GetAllEvents();
+            var result = await OrganiserService.GetAllEvents();
             events = result.ToList();
             filteredEvents = events;
         }
@@ -116,8 +116,8 @@
     {
         try
         {
-            await EventService.AddEvent(newEvent);
-            events = (await EventService.GetAllEvents()).ToList();
+            await OrganiserService.AddEvent(newEvent);
+            events = (await OrganiserService.GetAllEvents()).ToList();
             FilterEvents();
             newEvent.Id = Guid.NewGuid().ToString();
             newEvent.Name = "";
@@ -136,8 +136,8 @@
     {
         try
         {
-            await EventService.RemoveEvent(eventId);
-            events = (await EventService.GetAllEvents()).ToList();
+            await OrganiserService.RemoveEvent(eventId);
+            events = (await OrganiserService.GetAllEvents()).ToList();
             FilterEvents();
         }
         catch (Exception ex)

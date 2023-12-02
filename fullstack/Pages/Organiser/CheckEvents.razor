@@ -2,7 +2,7 @@
 @attribute [Authorize(Roles = "Task.Create")]
 @using fullstack.Typen
 @using fullstack.Services
-@inject EventService EventService
+@inject OrganiserService OrganiserService
 
 <PageTitle>CheckEvents</PageTitle>
 
@@ -46,7 +46,7 @@
     {
         try
         {
-            var result = await EventService.GetAllEvents();
+            var result = await OrganiserService.GetAllEvents();
             events = result.ToList();
             filteredEvents = events;
         }

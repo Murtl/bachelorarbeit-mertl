@@ -19,7 +19,8 @@ builder.Services.AddAuthorization(options =>
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor().AddMicrosoftIdentityConsentHandler();
-builder.Services.AddScoped<EventService>();
+builder.Services.AddScoped<ParticipantService>();
+builder.Services.AddScoped<OrganiserService>();
 
 var app = builder.Build();
 
