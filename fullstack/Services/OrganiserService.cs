@@ -1,6 +1,7 @@
 ﻿using fullstack.Typen;
 using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json;
+using System.Globalization;
 
 namespace fullstack.Services
 {
@@ -20,7 +21,12 @@ namespace fullstack.Services
                 // Deserialisiere den JSON-Text in ein Array von Event-Objekten
                 var events = JsonConvert.DeserializeObject<Event[]>(jsonText);
 
-                return events;
+                // Sortiere die Events nach Datum aufsteigend und behandele leere Werte
+                var sortedEvents = events.OrderBy(e => e.Date != ""
+                    ? DateTime.ParseExact(e.Date, "dd.MM.yyyy", CultureInfo.InvariantCulture)
+                    : DateTime.MaxValue);
+
+                return sortedEvents;
             }
             catch (Exception ex)
             {

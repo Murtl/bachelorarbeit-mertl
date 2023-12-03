@@ -1,6 +1,7 @@
 ﻿using fullstack.Typen;
 using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json;
+using System.Globalization;
 using Formatting = Newtonsoft.Json.Formatting;
 
 namespace fullstack.Services;
@@ -29,7 +30,12 @@ public class ParticipantService
                 return e;
             });
 
-            return events;
+            // Sortiere die Events nach Datum aufsteigend und behandele leere Werte
+            var sortedEventsWithoutParticipants = eventsWithoutParticipants.OrderBy(e => e.Date != ""
+                ? DateTime.ParseExact(e.Date, "dd.MM.yyyy", CultureInfo.InvariantCulture)
+                : DateTime.MaxValue);
+
+            return sortedEventsWithoutParticipants;
         }
         catch (Exception ex)
         {

@@ -10,8 +10,7 @@
 
 <section class="events-section">
     <section class="searchbar-section">
-        <input type="text" class="search-input" placeholder="Veranstaltung suchen..." @bind="searchTerm" />
-        <button class="btn btn-primary" @onclick="FilterEvents">Suchen</button>
+        <input type="text" class="search-input" placeholder="Veranstaltung suchen..." @oninput="HandleInput" />
     </section>
 
     @foreach (var evt in filteredEvents)
@@ -54,6 +53,12 @@
         {
             Console.WriteLine(ex.Message);
         }
+    }
+
+    private void HandleInput(ChangeEventArgs e)
+    {
+        searchTerm = e.Value.ToString();
+        FilterEvents();
     }
 
     private void FilterEvents()

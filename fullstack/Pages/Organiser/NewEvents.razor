@@ -10,8 +10,7 @@
 
 <section class="events-section">
     <section class="searchbar-section">
-        <input type="text" class="search-input" placeholder="Veranstaltung suchen..." @bind="searchTerm"/>
-        <button class="btn btn-primary" @onclick="FilterEvents">Suchen</button>
+        <input type="text" class="search-input" placeholder="Veranstaltung suchen..." @oninput="HandleInput"/>
         <button class="btn btn-primary" @onclick="OpenModal">+</button>
     </section>
 
@@ -42,12 +41,12 @@
 
         <div class="modal-row">
             <label for="eventDate">Veranstaltungsdatum*:</label>
-            <input type="text" id="eventDate" placeholder="Veranstaltungsdatum eingeben..." class="input-field" @bind="newEvent.Date" />
+            <input type="text" id="eventDate" placeholder="Veranstaltungsdatum in der Form dd.mm.yyyy eingeben..." class="input-field" @bind="newEvent.Date" />
         </div>
 
         <div class="modal-row">
             <label for="eventTime">Veranstaltungsuhrzeit*:</label>
-            <input type="text" id="eventTime" placeholder="Veranstaltungsuhrzeit eingeben..." class="input-field" @bind="newEvent.Time" />
+            <input type="text" id="eventTime" placeholder="Veranstaltungsuhrzeit in der Form xx:xx - yy:yy eingeben..." class="input-field" @bind="newEvent.Time" />
         </div>
 
          <div class="modal-row">
@@ -96,6 +95,12 @@
         newEvent.Time = "";
         newEvent.Description = "";
         ModalBootstrap.Open();
+    }
+
+    private void HandleInput(ChangeEventArgs e)
+    {
+        searchTerm = e.Value.ToString();
+        FilterEvents();
     }
 
     private void FilterEvents()

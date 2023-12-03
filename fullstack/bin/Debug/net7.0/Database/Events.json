@@ -65,6 +65,72 @@
     "Date": "25.02.2024",
     "Time": "15:00 - 16:00",
     "Description": "Einführung in Blazor Server",
+    "Participants": [
+      "mertl.user1@xitasocerberus.onmicrosoft.com"
+    ]
+  },
+  {
+    "Id": "3925cb91-d58f-4b73-b312-2f6c6e77f287",
+    "Name": "Blazor Wasm Schulung",
+    "Date": "23.01.2024",
+    "Time": "11:00 - 13:00",
+    "Description": "Schulung zum Thema Blazor Wasm",
+    "Participants": []
+  },
+  {
+    "Id": "cdf1ae76-01c9-4901-96da-9208b8852423",
+    "Name": "Was ist UI",
+    "Date": "15.01.2023",
+    "Time": "14:00 - 15:00",
+    "Description": "",
+    "Participants": []
+  },
+  {
+    "Id": "d4a72ac4-9842-4ac5-bd0c-ae84bb6ddeab",
+    "Name": "",
+    "Date": "",
+    "Time": "",
+    "Description": "",
+    "Participants": []
+  },
+  {
+    "Id": "d4a72ac4-9842-4ac5-bd0c-ae84bb6ddeab",
+    "Name": "",
+    "Date": "",
+    "Time": "",
+    "Description": "",
+    "Participants": []
+  },
+  {
+    "Id": "d4a72ac4-9842-4ac5-bd0c-ae84bb6ddeab",
+    "Name": "",
+    "Date": "",
+    "Time": "",
+    "Description": "",
+    "Participants": []
+  },
+  {
+    "Id": "d4a72ac4-9842-4ac5-bd0c-ae84bb6ddeab",
+    "Name": "",
+    "Date": "",
+    "Time": "",
+    "Description": "",
+    "Participants": []
+  },
+  {
+    "Id": "d4a72ac4-9842-4ac5-bd0c-ae84bb6ddeab",
+    "Name": "",
+    "Date": "",
+    "Time": "",
+    "Description": "",
+    "Participants": []
+  },
+  {
+    "Id": "d4a72ac4-9842-4ac5-bd0c-ae84bb6ddeab",
+    "Name": "",
+    "Date": "",
+    "Time": "",
+    "Description": "",
     "Participants": []
   }
 ]
