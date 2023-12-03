@@ -8,8 +8,7 @@
 
 <section class="events-section">
     <section class="searchbar-section">
-        <input type="text" class="search-input" id="searchInput" placeholder="Veranstaltung suchen..." />
-        <button class="btn btn-primary" onclick="filterEvents()">Suchen</button>
+        <input type="text" class="search-input" id="searchInput" placeholder="Veranstaltung suchen..." oninput="filterEvents()"/>
     </section>
 
     @foreach (var evt in ViewData["EventData"] as IEnumerable<EventModel> ?? Enumerable.Empty<EventModel>())
@@ -36,15 +35,6 @@
 </section>
 
 <script>
-    const inputField = document.getElementById("searchInput");
-
-    inputField.addEventListener("keyup", function (event) {
-        if (event.key === "Enter") {
-            filterEvents();
-        }
-    });
-
-
     function filterEvents() {
         let input, filter, events, eventWrapper, eventName, i, txtValue;
         input = document.getElementById("searchInput");

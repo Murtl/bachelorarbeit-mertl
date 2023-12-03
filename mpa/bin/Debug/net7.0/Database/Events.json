@@ -63,6 +63,8 @@
     "Date": "01.01.2024",
     "Time": "11:00 - 13:00",
     "Description": "Einführung in Blazor Server",
-    "Participants": []
+    "Participants": [
+      "mertl.user1@xitasocerberus.onmicrosoft.com"
+    ]
   }
 ]
