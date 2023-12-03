@@ -32,11 +32,11 @@
 </section>
 
 <div class="modal" tabindex="-1" role="dialog" id="myModal">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Veranstaltung hinzufügen</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" aria-label="Close" onclick="hideAddModal()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -48,12 +48,12 @@
 
                 <div class="modal-row">
                     <label for="eventDate">Veranstaltungsdatum*:</label>
-                    <input type="text" id="eventDate" placeholder="Veranstaltungsdatum eingeben..." class="input-field"/>
+                    <input type="text" id="eventDate" placeholder="Veranstaltungsdatum in der Form dd.mm.yyyy eingeben..." class="input-field"/>
                 </div>
 
                 <div class="modal-row">
                     <label for="eventTime">Veranstaltungsuhrzeit*:</label>
-                    <input type="text" id="eventTime" placeholder="Veranstaltungsuhrzeit eingeben..." class="input-field" />
+                    <input type="text" id="eventTime" placeholder="Veranstaltungsuhrzeit in der Form xx:xx - yy:yy eingeben..." class="input-field" />
                 </div>
 
                 <div class="modal-row">
@@ -79,7 +79,15 @@
     });
 
     function showAddModal() {
+        document.getElementById("eventName").value = '';
+        document.getElementById("eventDate").value = '';
+        document.getElementById("eventTime").value = '';
+        document.getElementById("eventDescription").value = '';
          $('#myModal').modal('show');
+    }
+
+    function hideAddModal() {
+        $('#myModal').modal('hide');
     }
 
     function addEvent() {
@@ -109,7 +117,6 @@
             url: "/Organiser/RemoveEvent",
             data: { id: eventId },
             success: function (data) {
-                alert("Veranstaltung erfolgreicht entfernt!");
                 location.href = location.href;
             },
             error: function (data) {

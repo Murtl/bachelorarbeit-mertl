@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using mpa.Models;
 using Newtonsoft.Json;
+using System.Globalization;
 
 namespace mpa.Controllers
 {
@@ -11,13 +12,13 @@ namespace mpa.Controllers
     {
         public async Task<IActionResult> NewEvents()
         {
-            ViewData["EventData"] = await GetAllEvents();
+            ViewData["EventData"] = SortEventsByDate(await GetAllEvents());
             return View();
         }
 
         public async Task<IActionResult> CheckEvents()
         {
-            ViewData["EventData"] = await GetAllEvents();
+            ViewData["EventData"] = SortEventsByDate(await GetAllEvents());
             return View();
         }
 
@@ -115,6 +116,16 @@ namespace mpa.Controllers
                 // Behandele Fehler, z.B., wenn die Datei nicht gefunden wird
                 throw new Exception($"Fehler beim Entfernen des Events: {ex.Message}");
             }
+        }
+
+        private IEnumerable<EventModel> SortEventsByDate(IEnumerable<EventModel> events)
+        {
+            // Sortiere die Events nach Datum aufsteigend und behandele Null-Werte
+            var sortedEvents = events.OrderBy(e => e.Date != null
+                ? DateTime.ParseExact(e.Date, "dd.MM.yyyy", CultureInfo.InvariantCulture)
+                : DateTime.MaxValue);
+
+            return sortedEvents;
         }
     }
 }

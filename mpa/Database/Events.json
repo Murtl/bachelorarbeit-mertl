@@ -56,5 +56,15 @@
     "Time": "15:00",
     "Description": "Schulung über verschiedene User Interfaces",
     "Participants": []
+  },
+  {
+    "Id": "41826c81-1f70-4d69-ac23-d85a57ac1cc3",
+    "Name": "Blazor Server",
+    "Date": "01.01.2024",
+    "Time": "11:00 - 13:00",
+    "Description": "Einführung in Blazor Server",
+    "Participants": [
+      "mertl.user1@xitasocerberus.onmicrosoft.com"
+    ]
   }
 ]
