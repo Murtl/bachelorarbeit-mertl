@@ -86,26 +86,26 @@ async function addEvent() {
       <BRow>
         <BCol>
           <BFormGroup label="Veranstaltungsname*">
-            <BFormInput v-model="newEvent.name"/>
+            <BFormInput v-model="newEvent.name" placeholder="Veranstaltungsname..."/>
           </BFormGroup>
         </BCol>
         <BCol>
           <BFormGroup label="Veranstaltungsdatum*">
-            <BFormInput v-model="newEvent.date"/>
+            <BFormInput v-model="newEvent.date" placeholder="Datum in Form dd.mm.yyyy..."/>
           </BFormGroup>
         </BCol>
       </BRow>
       <BRow>
         <BCol>
           <BFormGroup label="Veranstaltungsuhrzeit*">
-            <BFormInput v-model="newEvent.time"/>
+            <BFormInput v-model="newEvent.time" placeholder="Uhrzeit in Form xx:xx - yy:yy..."/>
           </BFormGroup>
         </BCol>
       </BRow>
       <BRow>
         <BCol>
           <BFormGroup label="Veranstaltungsbeschreibung">
-            <BFormTextarea v-model="newEvent.description"/>
+            <BFormTextarea v-model="newEvent.description" placeholder="Veranstaltungsbeschreibung..."/>
           </BFormGroup>
         </BCol>
       </BRow>
@@ -120,10 +120,10 @@ async function addEvent() {
   align-items: center;
   margin-bottom: 10px;
   gap: 10px;
-  width: 50%;
+  width: 70%;
 }
 
 .main-section {
-  width: 50%;
+  width: 70%;
 }
 </style>

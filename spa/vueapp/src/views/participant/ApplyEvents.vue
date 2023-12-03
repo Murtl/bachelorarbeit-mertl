@@ -56,10 +56,10 @@ function filterEvents() {
   align-items: center;
   margin-bottom: 10px;
   gap: 10px;
-  width: 50%;
+  width: 70%;
 }
 
 .main-section {
-  width: 50%;
+  width: 70%;
 }
 </style>

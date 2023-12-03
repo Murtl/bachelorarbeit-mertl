@@ -40,6 +40,6 @@ async function removeParticipantFromEvent(eventId: string) {
 
 <style scoped>
 .main-section {
-  width: 50%;
+  width: 70%;
 }
 </style>
