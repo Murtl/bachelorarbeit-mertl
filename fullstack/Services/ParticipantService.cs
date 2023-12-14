@@ -6,10 +6,12 @@ using Formatting = Newtonsoft.Json.Formatting;
 
 namespace fullstack.Services;
 
+// Der ParticipantService ist für die Verwaltung der Participants der Events zuständig und erfordert die Rolle "Task.Apply"
 [Authorize(Roles = "Task.Apply")]
 public class ParticipantService
 {
 
+    // Liefert alle Events ohne Teilnehmer aus der JSON-Datei zurück
     public async Task<IEnumerable<Event>> GetEventsWithoutParticipants()
     {
         try
@@ -44,6 +46,7 @@ public class ParticipantService
         }
     }
 
+    // Fügt einen Participant zu einem Event hinzu
     public async Task AddParticipant(string eventId, string participantName)
     {
         try
@@ -77,11 +80,13 @@ public class ParticipantService
                 }
                 else
                 {
+                    // Falls der Participant bereits existiert, wirf eine Exception
                     throw new Exception("Teilnehmer bereits beim Event angemeldet!");
                 }
             }
             else
             {
+                // Falls das Event nicht gefunden wurde, wirf eine Exception
                 throw new Exception("Event nicht gefunden!");
             }
         }
@@ -92,6 +97,7 @@ public class ParticipantService
         }
     }
 
+    // Liefert alle Events für einen Participant aus der JSON-Datei zurück
     public async Task<IEnumerable<Event>> GetEventsByParticipant(string participantName)
     {
         try
@@ -117,7 +123,6 @@ public class ParticipantService
         catch (Exception ex)
         {
             // Behandele Fehler, z.B., wenn die Datei nicht gefunden wird
-            // Du könntest auch einfach einen leeren List<Event> zurückgeben oder null
             throw new Exception($"Fehler beim Holen der Events für einen Teilnehmer: {ex.Message}");
         }
     }

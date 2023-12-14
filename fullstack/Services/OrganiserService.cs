@@ -5,9 +5,11 @@ using System.Globalization;
 
 namespace fullstack.Services
 {
+    // Der OrganiserService ist für die Verwaltung der Events zuständig und erfordert die Rolle "Task.Create"
     [Authorize(Roles = "Task.Create")]
     public class OrganiserService
     {
+        // Liefert alle Events aus der JSON-Datei zurück
         public async Task<IEnumerable<Event>> GetAllEvents()
         {
             try
@@ -36,6 +38,7 @@ namespace fullstack.Services
             }
         }
 
+        // Fügt ein neues Event zur JSON-Datei hinzu
         public async Task AddEvent(Event newEvent)
         {
             try
@@ -64,6 +67,8 @@ namespace fullstack.Services
                 throw new Exception($"Fehler beim Hinzufügen des Events: {ex.Message}");
             }
         }
+
+        // Entfernt ein Event aus der JSON-Datei
         public async Task RemoveEvent(string id)
         {
             try

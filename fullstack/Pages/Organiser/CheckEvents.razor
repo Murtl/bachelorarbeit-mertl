@@ -41,6 +41,7 @@
     private List<Event> filteredEvents = new List<Event>();
     private string searchTerm = "";
 
+    // Lädt alle Veranstaltungen beim Laden der Seite
     protected override async Task OnInitializedAsync()
     {
         try
@@ -55,12 +56,14 @@
         }
     }
 
+    // Aktualisiert den Suchbegriff in "searchTerm" und ruft "FilterEvents" auf
     private void HandleInput(ChangeEventArgs e)
     {
         searchTerm = e.Value.ToString();
         FilterEvents();
     }
 
+    // Filtert die Veranstaltungen nach dem Suchbegriff in "searchTerm"
     private void FilterEvents()
     {
         if (string.IsNullOrEmpty(searchTerm))

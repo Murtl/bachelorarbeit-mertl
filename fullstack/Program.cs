@@ -5,7 +5,7 @@ using Microsoft.Identity.Web.UI;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// F¸gt die Microsoft Identity Plattform Dienste hinzu.
 builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
 builder.Services.AddControllersWithViews()
@@ -13,22 +13,22 @@ builder.Services.AddControllersWithViews()
 
 builder.Services.AddAuthorization(options =>
 {
-    // By default, all incoming requests will be authorized according to the default policy
+    // Standardm‰ﬂig werden alle eingehenden Anforderungen gem‰ﬂ der Standardrichtlinie autorisiert
     options.FallbackPolicy = options.DefaultPolicy;
 });
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor().AddMicrosoftIdentityConsentHandler();
+// 
 builder.Services.AddScoped<ParticipantService>();
 builder.Services.AddScoped<OrganiserService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Konfiguriert die HTTP-Anforderungspipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 

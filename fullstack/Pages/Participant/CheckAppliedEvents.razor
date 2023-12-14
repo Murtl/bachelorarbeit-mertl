@@ -48,6 +48,7 @@
     private string alertMessage = "";
     private ModalBootstrap ModalBootstrap { get; set; }
 
+    // Lädt alle Veranstaltungen ohne die Teilnehmer beim Laden der Seite
     protected override async Task OnInitializedAsync()
     {
         try
@@ -67,20 +68,19 @@
         }
     }
 
+    // Meldet den Benutzer für die Veranstaltung über den "ParticipantService" ab
     private async Task RemoveAppliedEvent(string eventId)
     {
         try
         {
             var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
             var user = authenticationState.User;
-
-            // Hier kannst du auf die Benutzerinformationen zugreifen
             var userName = user.Identity.Name;
 
             await ParticipantService.RemoveParticipant(eventId, userName);
             var result = await ParticipantService.GetEventsByParticipant(userName);
             events = result.ToList();
-            alertMessage = "Sie sind haben sich erfolgreich von der Veranstaltung abgemeldet!";
+            alertMessage = "Sie haben sich erfolgreich von der Veranstaltung abgemeldet!";
             ModalBootstrap.Open();
         }
         catch (Exception ex)

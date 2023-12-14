@@ -52,6 +52,7 @@
     private string alertTitle = "";
     private ModalBootstrap ModalBootstrap { get; set; }
 
+    // Lädt alle Veranstaltungen ohne die Teilnehmer beim Laden der Seite
     protected override async Task OnInitializedAsync()
     {
         try
@@ -66,13 +67,14 @@
         }
     }
 
+    // Aktualisiert den Suchbegriff in "searchTerm" und ruft "FilterEvents" auf
     private void HandleInput(ChangeEventArgs e)
     {
         searchTerm = e.Value.ToString();
         FilterEvents();
     }
 
-
+    // Filtert die Veranstaltungen nach dem Suchbegriff in "searchTerm"
     private void FilterEvents()
     {
         if (string.IsNullOrEmpty(searchTerm))
@@ -87,14 +89,13 @@
         }
     }
 
+    // Meldet den Benutzer für die Veranstaltung über den "ParticipantService" an
     private async Task ApplyForEvent(string eventId)
     {
         try
         {
             var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
             var user = authenticationState.User;
-
-            // Hier kannst du auf die Benutzerinformationen zugreifen
             var userName = user.Identity.Name;
 
             await ParticipantService.AddParticipant(eventId, userName);

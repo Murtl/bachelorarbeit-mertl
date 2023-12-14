@@ -1,5 +1,6 @@
 ﻿namespace fullstack.Typen
 {
+    // Eventklasse mit den benötigten Eigenschaften
     public class Event
     {
         public required string Id { get; set; }

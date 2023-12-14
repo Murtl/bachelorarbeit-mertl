@@ -6,7 +6,7 @@ using System.Globalization;
 
 namespace mpa.Controllers
 {
-    // Der ParticipantController ist für die Verwaltung der Events zuständig und erfordert die Rolle "Task.Apply"
+    // Der ParticipantController ist für die Verwaltung der Participants der Events zuständig und erfordert die Rolle "Task.Apply"
     [Authorize(Roles = "Task.Apply")]
     public class ParticipantController : Controller
     {

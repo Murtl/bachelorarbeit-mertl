@@ -74,6 +74,7 @@
         Participants = new List<string>()
     };
 
+    // Lädt alle Veranstaltungen beim Laden der Seite
     protected override async Task OnInitializedAsync()
     {
         try
@@ -88,6 +89,7 @@
         }
     }
 
+    // Öffnet das Modal
     private void OpenModal()
     {
         newEvent.Name = "";
@@ -97,12 +99,14 @@
         ModalBootstrap.Open();
     }
 
+    // Aktualisiert den Suchbegriff in "searchTerm" und ruft "FilterEvents" auf
     private void HandleInput(ChangeEventArgs e)
     {
         searchTerm = e.Value.ToString();
         FilterEvents();
     }
 
+    // Filtert die Veranstaltungen nach dem Suchbegriff in "searchTerm"
     private void FilterEvents()
     {
         if (string.IsNullOrEmpty(searchTerm))
@@ -117,6 +121,7 @@
         }
     }
 
+    // Fügt eine neue Veranstaltung über den "OrganiserService" hinzu und aktualisiert die Liste
     private async Task AddEvent()
     {
         try
@@ -137,6 +142,7 @@
         }
     }
 
+    // Entfernt eine Veranstaltung über den "OrganiserService" und aktualisiert die Liste
     private async Task RemoveEvent(string eventId)
     {
         try
