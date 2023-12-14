@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using mpa.Models;
 using Newtonsoft.Json;
 using System.Globalization;
 
 namespace mpa.Controllers
 {
+    // Der ParticipantController ist für die Verwaltung der Events zuständig und erfordert die Rolle "Task.Apply"
     [Authorize(Roles = "Task.Apply")]
     public class ParticipantController : Controller
     {
@@ -22,6 +22,7 @@ namespace mpa.Controllers
             return View();
         }
 
+        // Die Methode GetAllEvents() liest alle Events aus der JSON-Datei aus und projiziert sie auf eine neue Klasse ohne das Feld Participants
         private async Task<IEnumerable<EventModel>> GetAllEventsForParticipant()
         {
             try
@@ -54,6 +55,7 @@ namespace mpa.Controllers
             }
         }
 
+        // Die Methode GetEventsByParticipant() liest alle Events aus der JSON-Datei aus und filtert sie nach dem angegebenen Participant
         public async Task<IEnumerable<EventModel>> GetEventsByParticipant(string participantName)
         {
             try
@@ -91,6 +93,7 @@ namespace mpa.Controllers
             }
         }
 
+        // Die Methode AddParticipant() fügt einen neuen Participant zu einem Event in der JSON-Datei hinzu
         [HttpPost]
         public async Task<IActionResult> AddParticipant(string eventId)
         {
@@ -142,6 +145,7 @@ namespace mpa.Controllers
             }
         }
 
+        // Die Methode RemoveParticipant() entfernt einen Participant aus einem Event in der JSON-Datei
         [HttpDelete]
         public async Task<IActionResult> RemoveParticipant(string eventId)
         {
@@ -184,6 +188,7 @@ namespace mpa.Controllers
             }
         }
 
+        // Die Methode SortEventsByDate() sortiert die Events nach Datum aufsteigend
         private IEnumerable<EventModel> SortEventsByDate(IEnumerable<EventModel> events)
         {
             // Sortiere die Events nach Datum aufsteigend und behandele Null-Werte

@@ -7,11 +7,12 @@ using System.IdentityModel.Tokens.Jwt;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
+// Fügt die Microsoft Identity Platform Dienste hinzu.
 builder.Services.AddMicrosoftIdentityWebAppAuthentication(builder.Configuration);
 builder.Services.Configure<OpenIdConnectOptions>(OpenIdConnectDefaults.AuthenticationScheme, options =>
 {
+    // Fügt den Claim "roles" zu den Claims hinzu, die von der App empfangen werden
     options.TokenValidationParameters.RoleClaimType = "roles";
 });
 
@@ -27,11 +28,10 @@ builder.Services.AddControllersWithViews(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Konfiguriert die HTTP-Anforderungs-Pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 

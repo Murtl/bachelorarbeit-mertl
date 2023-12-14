@@ -28,13 +28,14 @@
 </section>
 
 <script>
+    // Ruft die Methode RemoveParticipant im ParticipantController auf und übergibt die EventId
     function removeParticipant(eventId) {
         $.ajax({
             type: "DELETE",
             url: "/Participant/RemoveParticipant",
             data: { eventId: eventId },
             success: function (data) {
-                alert("Erfolgreich für die Veranstaltung abgemeldet!");
+                alert("Erfolgreich von der Veranstaltung abgemeldet!");
                 location.href = location.href;
             },
             error: function (data) {

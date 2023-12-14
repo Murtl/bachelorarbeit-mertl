@@ -30,6 +30,7 @@
 </section>
 
 <script>
+    // Ruft die Methode AddParticipant im ParticipantController auf und übergibt die EventId
     function addParticipant(eventId) {
         $.ajax({
             type: "POST",
@@ -44,6 +45,7 @@
         });
     }
 
+    // Filtert die Veranstaltungen nach dem Namen
     function filterEvents() {
         let input, filter, events, eventWrapper, eventName, i, txtValue;
         input = document.getElementById("searchInput");

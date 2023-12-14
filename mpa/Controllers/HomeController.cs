@@ -5,6 +5,7 @@ using System.Diagnostics;
 
 namespace mpa.Controllers
 {
+    // Der HomeController ist für die Startseite der App zuständig
     [Authorize]
     public class HomeController : Controller
     {

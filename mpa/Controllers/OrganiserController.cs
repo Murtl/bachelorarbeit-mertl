@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using mpa.Models;
 using Newtonsoft.Json;
 using System.Globalization;
 
 namespace mpa.Controllers
 {
+    // Der OrganiserController ist für die Verwaltung der Events zuständig und erfordert die Rolle "Task.Create"
     [Authorize(Roles = "Task.Create")]
     public class OrganiserController : Controller
     {
@@ -22,6 +22,7 @@ namespace mpa.Controllers
             return View();
         }
 
+        // Die Methode GetAllEvents() liest alle Events aus der JSON-Datei aus
         private async Task<IEnumerable<EventModel>> GetAllEvents()
         {
             try
@@ -44,7 +45,7 @@ namespace mpa.Controllers
             }
         }
 
-
+        // Die Methode AddEvent() fügt ein neues Event in der JSON-Datei hinzu
         [HttpPost]
         public async Task<IActionResult> AddEvent(EventModel newEvent)
         {
@@ -79,6 +80,7 @@ namespace mpa.Controllers
             }
         }
 
+        // Die Methode RemoveEvent() entfernt ein Event aus der JSON-Datei
         [HttpDelete]
         public async Task<IActionResult> RemoveEvent(string id)
         {
@@ -118,6 +120,7 @@ namespace mpa.Controllers
             }
         }
 
+        // Die Methode SortEventsByDate() sortiert die Events nach Datum aufsteigend
         private IEnumerable<EventModel> SortEventsByDate(IEnumerable<EventModel> events)
         {
             // Sortiere die Events nach Datum aufsteigend und behandele Null-Werte

@@ -69,6 +69,7 @@
 </div>
 
 <script>
+    // Zeigt das Modal zum Hinzufügen einer Veranstaltung an
     function showAddModal() {
         document.getElementById("eventName").value = '';
         document.getElementById("eventDate").value = '';
@@ -77,10 +78,12 @@
          $('#myModal').modal('show');
     }
 
+    // Versteckt das Modal zum Hinzufügen einer Veranstaltung
     function hideAddModal() {
         $('#myModal').modal('hide');
     }
 
+    // Ruft die Methode AddEvent im OrganiserController auf und übergibt die Eventdaten 
     function addEvent() {
         let eventName = document.getElementById("eventName").value;
         let eventDate = document.getElementById("eventDate").value;
@@ -101,6 +104,7 @@
         $('#myModal').modal('hide');
     }
 
+    // Ruft die Methode RemoveEvent im OrganiserController auf und übergibt die EventId
     function removeEvent(eventId) {
         console.log(eventId)
         $.ajax({
@@ -116,6 +120,7 @@
         });
     }
 
+    // Filtert die Veranstaltungen nach dem Namen
     function filterEvents() {
         let input, filter, events, eventWrapper, eventName, i, txtValue;
         input = document.getElementById("searchInput");
