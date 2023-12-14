@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import {msalInstance} from "@/auth/msalConfig";
-import {useUserStore} from "@/stores/userStore";
-import {onMounted} from "vue";
-import {useEventStore} from "@/stores/eventStore";
+import { msalInstance } from "@/auth/msalConfig";
+import { useUserStore } from "@/stores/userStore";
+import { onMounted } from "vue";
+import { useEventStore } from "@/stores/eventStore";
 import router from "@/routes";
 
 const eventStore = useEventStore();
@@ -12,45 +12,58 @@ const userStore = useUserStore();
 onMounted(async () => {
   await msalInstance.initialize();
   const cookieAccounts = msalInstance.getAllAccounts();
-  if (cookieAccounts.length > 0 && cookieAccounts[0].idTokenClaims && cookieAccounts[0].idTokenClaims.roles) {
-      userStore.userRole = cookieAccounts[0].idTokenClaims.roles[0];
-      userStore.loggedIn = true;
-      userStore.userName = cookieAccounts[0].username;
-      if(userStore.userRole === 'Task.Create'){
-        await eventStore.getEvents();
-      } else if(userStore.userRole === 'Task.Apply') {
-        await eventStore.getEventsWithoutParticipants();
-      }
-      await router.push('/');
+  if (
+    cookieAccounts.length > 0 &&
+    cookieAccounts[0].idTokenClaims &&
+    cookieAccounts[0].idTokenClaims.roles
+  ) {
+    userStore.userRole = cookieAccounts[0].idTokenClaims.roles[0];
+    userStore.loggedIn = true;
+    userStore.userName = cookieAccounts[0].username;
+    if (userStore.userRole === "Task.Create") {
+      await eventStore.getEvents();
+    } else if (userStore.userRole === "Task.Apply") {
+      await eventStore.getEventsWithoutParticipants();
+    }
+    await router.push("/");
   } else {
     userStore.loggedIn = false;
-    userStore.userRole = '';
+    userStore.userRole = "";
   }
-})
+});
 
+/*+
+ * @description meldet den Nutzer an
+ */
 async function login() {
   try {
-    await msalInstance.clearCache()
+    await msalInstance.clearCache();
     const loginRequest = {
-      scopes: ['api://94c3b8ee-37e6-49c2-a05f-a78aa50acc89/Files.read']
-    }
+      scopes: ["api://94c3b8ee-37e6-49c2-a05f-a78aa50acc89/Files.read"],
+    };
     const response = await msalInstance.loginPopup(loginRequest);
     userStore.loggedIn = true;
     userStore.userName = response.account.username;
-    if('roles' in response.idTokenClaims && Array.isArray(response.idTokenClaims.roles)) {
+    if (
+      "roles" in response.idTokenClaims &&
+      Array.isArray(response.idTokenClaims.roles)
+    ) {
       userStore.userRole = response.idTokenClaims.roles[0];
     }
-    if(userStore.userRole === 'Task.Create'){
+    if (userStore.userRole === "Task.Create") {
       await eventStore.getEvents();
-    } else if(userStore.userRole === 'Task.Apply') {
+    } else if (userStore.userRole === "Task.Apply") {
       await eventStore.getEventsWithoutParticipants();
     }
-    await router.push('/');
+    await router.push("/");
   } catch (error) {
     console.error("Fehler bei der Anmeldung", error);
   }
 }
 
+/**
+ * @description meldet den Nutzer ab
+ */
 async function logout() {
   try {
     await msalInstance.logoutRedirect();
@@ -62,7 +75,7 @@ async function logout() {
 
 <template>
   <div v-if="!userStore.loggedIn" class="login-view">
-      <h1>Willkommen bei dem Schulungsportal der Schalk Maschinen GmbH</h1>
+    <h1>Willkommen bei dem Schulungsportal der Schalk Maschinen GmbH</h1>
     <BButton @click="login">Anmelden</BButton>
   </div>
   <div v-else>
@@ -75,15 +88,32 @@ async function logout() {
         <BCollapse id="nav-collapse" :is-nav="true">
           <BNavbarNav class="mx-auto">
             <BNavItem to="/">Home</BNavItem>
-                    <BNavItem to="/new-events" v-if="userStore.userRole === 'Task.Create'">Veranstaltung erstellen</BNavItem>
-                    <BNavItem to="/check-events" v-if="userStore.userRole === 'Task.Create'">Teilnehmer ansehen</BNavItem>
-                    <BNavItem to="/apply-events" v-if="userStore.userRole === 'Task.Apply'">Veranstaltung buchen</BNavItem>
-                    <BNavItem to="/check-applied-events" v-if="userStore.userRole === 'Task.Apply'">
-                      Veranstaltungen ansehen
-                    </BNavItem>
+            <BNavItem
+              to="/new-events"
+              v-if="userStore.userRole === 'Task.Create'"
+              >Veranstaltung erstellen</BNavItem
+            >
+            <BNavItem
+              to="/check-events"
+              v-if="userStore.userRole === 'Task.Create'"
+              >Teilnehmer ansehen</BNavItem
+            >
+            <BNavItem
+              to="/apply-events"
+              v-if="userStore.userRole === 'Task.Apply'"
+              >Veranstaltung buchen</BNavItem
+            >
+            <BNavItem
+              to="/check-applied-events"
+              v-if="userStore.userRole === 'Task.Apply'"
+            >
+              Veranstaltungen ansehen
+            </BNavItem>
           </BNavbarNav>
 
-          <BButton @click="logout" variant="link" class="button-space">Logout</BButton>
+          <BButton @click="logout" variant="link" class="button-space"
+            >Logout</BButton
+          >
         </BCollapse>
       </BNavbar>
     </header>
@@ -94,7 +124,7 @@ async function logout() {
 </template>
 
 <style scoped>
-.login-view{
+.login-view {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -102,12 +132,12 @@ async function logout() {
   margin-top: 10%;
 }
 
-.button-space{
+.button-space {
   width: 235px;
   text-align: right;
 }
 
-main{
+main {
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -5,11 +5,13 @@ using webapi.Typen;
 
 namespace webapi.Controllers;
 
+// Die Klasse OrganiserController repräsentiert die REST-Schnittstelle für Organisatoren
 [ApiController]
 [Route("api/[controller]")]
 [Authorize(Roles = "Task.Create")]
 public class OrganiserController : ControllerBase
 {
+    // Die Methode GetAllEvents liefert alle Events aus der JSON-Datenbank zurück
     [HttpGet("GetAllEvents")]
     public async Task<ActionResult<IEnumerable<Event>>> GetAllEvents()
     {
@@ -34,6 +36,7 @@ public class OrganiserController : ControllerBase
         }
     }
 
+    // Die Methode AddEvent fügt ein neues Event in der JSON-Datenbank hinzu
     [HttpPost("AddEvent")]
     public async Task<IActionResult> AddEvent([FromBody] Event newEvent)
     {
@@ -65,6 +68,7 @@ public class OrganiserController : ControllerBase
         }
     }
 
+    // Die Methode RemoveEvent entfernt ein Event aus der JSON-Datenbank
     [HttpDelete("{id}")]
     public async Task<IActionResult> RemoveEvent(string id)
     {

@@ -1,9 +1,28 @@
 <script setup lang="ts">
-interface Props{
+interface Props {
+  /**
+   * @description Die ID des Events
+   */
   id: string;
+
+  /**
+   * @description Der Name des Events
+   */
   name: string;
+
+  /**
+   * @description Das Datum des Events
+   */
   date: string;
+
+  /**
+   * @description Die Uhrzeit des Events
+   */
   time: string;
+
+  /**
+   * @description Die Teilnehmer des Events
+   */
   participants: string[];
 }
 
@@ -13,10 +32,10 @@ defineProps<Props>();
 <template>
   <div class="event-segment-host">
     <section class="header-section">
-      <span class="event-name">{{name}}</span>
+      <span class="event-name">{{ name }}</span>
       <div class="right-header-section">
-        <span class="event-date">{{date}}</span>
-        <span class="event-time">{{time}}</span>
+        <span class="event-date">{{ date }}</span>
+        <span class="event-time">{{ time }}</span>
       </div>
     </section>
     <section class="participant-section">
@@ -29,7 +48,7 @@ defineProps<Props>();
 .event-segment-host {
   border: 1px solid black;
   padding: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin: 5px;
   border-radius: 5px;
 }
@@ -39,7 +58,7 @@ defineProps<Props>();
   margin-bottom: 10px;
 }
 
-.event-name{
+.event-name {
   font-weight: bold;
   width: 80%;
 }

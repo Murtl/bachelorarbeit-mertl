@@ -1,5 +1,6 @@
 ﻿namespace webapi.Typen
 {
+    // Die Klasse Event repräsentiert ein Event mit seinen Eigenschaften
     public class Event
     {
         public required string Id { get; set; }

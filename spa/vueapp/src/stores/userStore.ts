@@ -1,14 +1,14 @@
-import { defineStore } from 'pinia'
-import { ref } from 'vue'
-import type { Ref } from 'vue'
+import { defineStore } from "pinia";
+import { ref } from "vue";
+import type { Ref } from "vue";
 
 /**
- * @description Store for user data
+ * @description Store für Benutzerdaten
  */
-export const useUserStore = defineStore('userStore', () => {
-    const loggedIn: Ref<boolean> = ref(false);
-    const userRole: Ref<string> = ref('');
-    const userName: Ref<string> = ref('')
+export const useUserStore = defineStore("userStore", () => {
+  const loggedIn: Ref<boolean> = ref(false);
+  const userRole: Ref<string> = ref("");
+  const userName: Ref<string> = ref("");
 
-    return { loggedIn, userRole, userName }
-})
+  return { loggedIn, userRole, userName };
+});

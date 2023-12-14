@@ -4,13 +4,14 @@ using Microsoft.Identity.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Adds Microsoft Identity platform (AAD v2.0) support to protect this Api
+// Fügt Microsoft Identity Platform (AAD v2.0) Unterstützung hinzu, um diese API zu schützen
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         .AddMicrosoftIdentityWebApi(options =>
         {
             builder.Configuration.Bind("AzureAd", options);
             options.Events = new JwtBearerEvents();
 
+            // Validiert, dass der Mandant der Anwendung mit dem Mandanten des ID-Tokens übereinstimmt
             options.Events.OnTokenValidated = async context =>
             {
                 var tenantId = context.Principal.FindFirst("tid")?.Value;
@@ -23,6 +24,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         }, options => { builder.Configuration.Bind("AzureAd", options); });
 
 
+// Fügt Cross-Origin Resource Sharing (CORS) Unterstützung hinzu, um die API von einer anderen Domäne aus zu erreichen
 builder.Services.AddCors(o => o.AddPolicy("default", builder =>
 {
     builder
@@ -32,13 +34,13 @@ builder.Services.AddCors(o => o.AddPolicy("default", builder =>
 }));
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Lernt mehr über die Konfiguration von Swagger/OpenAPI unter https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Konfiguriert die HTTP-Anforderungs-Pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

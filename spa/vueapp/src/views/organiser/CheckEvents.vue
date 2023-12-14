@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import {onMounted, ref, watch} from "vue";
-import ApiService from "@/auth/ApiService";
-import EventSegment from "@/components/EventSegment.vue";
-import {useEventStore} from "@/stores/eventStore";
+import { ref, watch } from "vue";
+import { useEventStore } from "@/stores/eventStore";
 import ParticipantsSegment from "@/components/ParticipantsSegment.vue";
 
 const eventStore = useEventStore();
@@ -18,24 +16,23 @@ watch(eventFilter, (newValue) => {
     });
   }
 });
-
-
 </script>
 
 <template>
   <section class="header-section">
-    <BFormInput
-        v-model="eventFilter"
-        placeholder="Filtern nach Event..."
-    />
+    <BFormInput v-model="eventFilter" placeholder="Filtern nach Event..." />
   </section>
-  <section class="main-section" v-for="(event, index) in filteredEvents" :key="index">
+  <section
+    class="main-section"
+    v-for="(event, index) in filteredEvents"
+    :key="index"
+  >
     <ParticipantsSegment
-        :id="event.id"
-        :name="event.name"
-        :date="event.date"
-        :time="event.time"
-        :participants="event.participants ?? []"
+      :id="event.id"
+      :name="event.name"
+      :date="event.date"
+      :time="event.time"
+      :participants="event.participants ?? []"
     />
   </section>
 </template>

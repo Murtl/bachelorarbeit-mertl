@@ -5,11 +5,13 @@ using webapi.Typen;
 
 namespace webapi.Controllers;
 
+// Die Klasse ParticipantController repräsentiert die REST-Schnittstelle für Teilnehmer
 [ApiController]
 [Route("api/[controller]")]
 [Authorize(Roles = "Task.Apply")]
 public class ParticipantController : ControllerBase
 {
+    // Die Methode GetEventsWithoutParticipants liefert alle Events ohne Participants aus der JSON-Datenbank zurück
     [HttpGet("GetEventsWithoutParticipants")]
     public async Task<ActionResult<IEnumerable<Event>>> GetEventsWithoutParticipants()
     {
@@ -44,6 +46,7 @@ public class ParticipantController : ControllerBase
         }
     }
 
+    // Die Methode AddParticipant fügt einen Participant zu einem Event in der JSON-Datenbank hinzu
     [HttpPost("{eventId}/AddParticipant")]
     public async Task<IActionResult> AddParticipant(string eventId, [FromBody] string participantName)
     {
@@ -79,6 +82,7 @@ public class ParticipantController : ControllerBase
                 }
                 else
                 {
+                    // Falls der Participant bereits existiert, gib einen Fehler zurück
                     return BadRequest("Participant existiert bereits im Event.");
                 }
             }
@@ -95,6 +99,7 @@ public class ParticipantController : ControllerBase
         }
     }
 
+    // Die Methode GetEventsByParticipant liefert alle Events für einen Participant aus der JSON-Datenbank zurück
     [HttpGet("GetEventsByParticipant/{participantName}")]
     public async Task<IActionResult> GetEventsByParticipant(string participantName)
     {
@@ -130,6 +135,7 @@ public class ParticipantController : ControllerBase
         }
     }
 
+    // Die Methode RemoveParticipant entfernt einen Participant aus einem Event in der JSON-Datenbank
     [HttpDelete("{eventId}/RemoveParticipant")]
     public async Task<IActionResult> RemoveParticipant(string eventId, [FromBody] string participantName)
     {
@@ -165,6 +171,7 @@ public class ParticipantController : ControllerBase
                 }
                 else
                 {
+                    // Falls der Participant nicht gefunden wurde, gib einen Fehler zurück
                     return BadRequest("Participant nicht im Event vorhanden.");
                 }
             }
