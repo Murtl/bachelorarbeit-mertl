@@ -16,8 +16,7 @@ export const useEventStore = defineStore("eventStore", () => {
   async function getEvents() {
     try {
       const response = await ApiService.get("/api/Organiser/GetAllEvents");
-      events.value = response.data;
-      sortEventsByDate();
+      events.value = sortEventsByDate(response.data);
     } catch (e: any) {
       console.log(e);
     }
@@ -31,8 +30,7 @@ export const useEventStore = defineStore("eventStore", () => {
       const response = await ApiService.get(
         "/api/Participant/GetEventsWithoutParticipants",
       );
-      events.value = response.data;
-      sortEventsByDate();
+      events.value = sortEventsByDate(response.data);
     } catch (e: any) {
       console.log(e);
     }
@@ -46,7 +44,7 @@ export const useEventStore = defineStore("eventStore", () => {
     try {
       await ApiService.post("/api/Organiser/AddEvent", event);
       events.value.push(event);
-      sortEventsByDate();
+      events.value = sortEventsByDate(events.value);
     } catch (e: any) {
       console.log(e);
     }
@@ -98,13 +96,11 @@ export const useEventStore = defineStore("eventStore", () => {
       const response = await ApiService.get(
         `/api/Participant/GetEventsByParticipant/${participant}`,
       );
-      return response.data;
+      return sortEventsByDate(response.data);
     } catch (e: any) {
       console.log(e);
+      return [];
     }
-    return events.value.filter(
-      (event) => event.participants?.includes(participant),
-    );
   }
 
   /**
@@ -125,9 +121,10 @@ export const useEventStore = defineStore("eventStore", () => {
 
   /**
    * @description Sortiert die Events nach Datum
+   * @param eventsToSort Die Events, die sortiert werden sollen
    */
-  function sortEventsByDate() {
-    events.value.sort((a, b) => {
+  function sortEventsByDate(eventsToSort: EventType[]) {
+    return eventsToSort.sort((a, b) => {
       const dateA = a.date.split(".").reverse().join();
       const dateB = b.date.split(".").reverse().join();
       return dateA.localeCompare(dateB);
