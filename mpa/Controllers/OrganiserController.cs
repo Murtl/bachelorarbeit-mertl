@@ -98,7 +98,6 @@ namespace mpa.Controllers
                 // Suchen nach dem Event mit der übergebenen ID
                 EventModel eventToRemove = events.FirstOrDefault(e => e.Id == id);
 
-    
                 // Falls das Event gefunden wurde, entfernen aus der Liste
                 if (eventToRemove != null)
                 {

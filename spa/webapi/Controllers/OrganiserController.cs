@@ -15,23 +15,22 @@ public class OrganiserController : ControllerBase
     [HttpGet("GetAllEvents")]
     public async Task<ActionResult<IEnumerable<Event>>> GetAllEvents()
     {
-        // Pfade und Dateinamen entsprechend deiner Struktur anpassen
-        string jsonFilePath = "Database/Events.json";
-
         try
         {
-            // Lese den JSON-Text aus der Datei
+            // Pfad zur JSON-Datenbank
+            string jsonFilePath = "Database/Events.json";
+
+            // Asynchnrones Auslesen der JSON-Datenbank
             string jsonText = await System.IO.File.ReadAllTextAsync(jsonFilePath);
 
-            // Deserialisiere den JSON-Text in ein Array von Event-Objekten
-            var events = JsonConvert.DeserializeObject<Event[]>(jsonText);
+            // Deserialisieren des JSON-Texts in eine List<Event>
+            List<Event> events = JsonConvert.DeserializeObject<List<Event>>(jsonText);
 
-            // Gib die Events als HTTP GET-Antwort zurück
             return Ok(events);
         }
         catch (Exception ex)
         {
-            // Behandele Fehler, z.B., wenn die Datei nicht gefunden wird
+            // Werfen einer Fehlermeldung, falls ein Fehler auftritt
             return StatusCode(500, $"Internal server error: {ex.Message}");
         }
     }
@@ -42,28 +41,29 @@ public class OrganiserController : ControllerBase
     {
         try
         {
-            // Lese den vorhandenen JSON-Text aus der Datei
+            // Pfad zur JSON-Datenbank
             string jsonFilePath = "Database/Events.json";
+
+            // Asynchnrones Auslesen der JSON-Datenbank
             string jsonText = await System.IO.File.ReadAllTextAsync(jsonFilePath);
 
-            // Deserialisiere den JSON-Text in ein List<Event>
-            var events = JsonConvert.DeserializeObject<List<Event>>(jsonText);
+            // Deserialisieren des JSON-Texts in eine List<Event>
+            List<Event> events = JsonConvert.DeserializeObject<List<Event>>(jsonText);
 
-            // Füge das neue Event zur Liste hinzu
+            // Hinzufügen des neuen Events zur Liste
             events.Add(newEvent);
 
-            // Serialisiere die aktualisierte Liste in JSON
+            // Serialisieren der aktualisierten Liste in JSON
             string updatedJsonText = JsonConvert.SerializeObject(events, Formatting.Indented);
 
-            // Schreibe den JSON-Text zurück in die Datei
+            // Asynchrones zurückschreiben des JSON-Texts in die Datei
             await System.IO.File.WriteAllTextAsync(jsonFilePath, updatedJsonText);
 
-            // Gib das hinzugefügte Event als HTTP POST-Antwort zurück
             return CreatedAtAction(nameof(AddEvent), newEvent);
         }
         catch (Exception ex)
         {
-            // Behandele Fehler, z.B., wenn die Datei nicht gefunden wird
+            // Werfen einer Fehlermeldung, falls ein Fehler auftritt
             return StatusCode(500, $"Internal server error: {ex.Message}");
         }
     }
@@ -74,39 +74,40 @@ public class OrganiserController : ControllerBase
     {
         try
         {
-            // Lese den vorhandenen JSON-Text aus der Datei
+            // Pfad zur JSON-Datenbank
             string jsonFilePath = "Database/events.json";
+
+            // Asynchnrones Auslesen der JSON-Datenbank
             string jsonText = await System.IO.File.ReadAllTextAsync(jsonFilePath);
 
-            // Deserialisiere den JSON-Text in ein List<Event>
-            var events = JsonConvert.DeserializeObject<List<Event>>(jsonText);
+            // Deserialisieren des JSON-Texts in eine List<Event>
+            List<Event> events = JsonConvert.DeserializeObject<List<Event>>(jsonText);
 
-            // Suche das Event anhand seiner ID
-            var eventToRemove = events.FirstOrDefault(e => e.Id == id);
+            // Suchen nach dem Event mit der übergebenen ID
+            Event eventToRemove = events.FirstOrDefault(e => e.Id == id);
 
-            // Falls das Event gefunden wurde, entferne es aus der Liste
+            // Falls das Event gefunden wurde, entfernen aus der Liste
             if (eventToRemove != null)
             {
                 events.Remove(eventToRemove);
 
-                // Serialisiere die aktualisierte Liste in JSON
+                // Serialisieren der aktualisierten Liste in JSON
                 string updatedJsonText = JsonConvert.SerializeObject(events, Formatting.Indented);
 
-                // Schreibe den JSON-Text zurück in die Datei
+                // Asynchrones zurückschreiben des JSON-Texts in die Datei
                 await System.IO.File.WriteAllTextAsync(jsonFilePath, updatedJsonText);
 
-                // Gib eine Erfolgsantwort zurück
                 return Ok("Event erfolgreich entfernt.");
             }
             else
             {
-                // Falls das Event nicht gefunden wurde, gib einen Fehler zurück
+                // Werfen einer Fehlermeldung, falls das Event nicht gefunden wurde
                 return NotFound("Event nicht gefunden.");
             }
         }
         catch (Exception ex)
         {
-            // Behandele Fehler, z.B., wenn die Datei nicht gefunden wird
+            // Werfen einer Fehlermeldung, falls ein Fehler auftritt
             return StatusCode(500, $"Internal server error: {ex.Message}");
         }
     }
