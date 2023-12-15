@@ -16,32 +16,32 @@ public class ParticipantService
     {
         try
         {
-            // Pfade und Dateinamen entsprechend deiner Struktur anpassen
+            // Pfad zur JSON-Datenbank
             string jsonFilePath = "Database/Events.json";
 
-            // Lese den JSON-Text asynchron aus der Datei
+            // Asynchnrones Auslesen der JSON-Datenbank
             string jsonText = await File.ReadAllTextAsync(jsonFilePath);
 
-            // Deserialisiere den JSON-Text in ein Array von Event-Objekten
-            var events = JsonConvert.DeserializeObject<Event[]>(jsonText);
+            // Deserialisieren des JSON-Texts in einen Array von Event-Objekten
+            Event[] events = JsonConvert.DeserializeObject<Event[]>(jsonText);
 
-            // Überschreibe alle Events in der Liste indem alle Participants gelöscht werden
-            var eventsWithoutParticipants = events.Select(e =>
+            // Überschreiben aller Events in der Liste indem alle Participants gelöscht werden
+            Event[] eventsWithoutParticipants = events.Select(e =>
             {
                 e.Participants = new List<string>();
                 return e;
-            });
+            }).ToArray();
 
-            // Sortiere die Events nach Datum aufsteigend und behandele leere Werte
-            var sortedEventsWithoutParticipants = eventsWithoutParticipants.OrderBy(e => e.Date != ""
+            // Sortieren der Events nach Datum aufsteigend
+            Event[] sortedEventsWithoutParticipants = eventsWithoutParticipants.OrderBy(e => e.Date != ""
                 ? DateTime.ParseExact(e.Date, "dd.MM.yyyy", CultureInfo.InvariantCulture)
-                : DateTime.MaxValue);
+                : DateTime.MaxValue).ToArray();
 
             return sortedEventsWithoutParticipants;
         }
         catch (Exception ex)
         {
-            // Behandele Fehler, z.B., wenn die Datei nicht gefunden wird
+            // Werfen einer Expcetion mit einer Fehlermeldung, falls ein Fehler auftritt
             throw new Exception($"Fehler beim Abrufen der Events: {ex.Message}");
         }
     }
@@ -51,48 +51,47 @@ public class ParticipantService
     {
         try
         {
-            // Pfade und Dateinamen entsprechend deiner Struktur anpassen
+            // Pfad zur JSON-Datenbank
             string jsonFilePath = "Database/events.json";
 
-            // Lese den vorhandenen JSON-Text asynchron aus der Datei
+            // Asynchnrones Auslesen der JSON-Datenbank
             string jsonText = await File.ReadAllTextAsync(jsonFilePath);
 
-            // Deserialisiere den JSON-Text in ein List<Event>
-            var events = JsonConvert.DeserializeObject<List<Event>>(jsonText);
+            // Deserialisieren des JSON-Texts in eine List<Event>
+            List<Event> events = JsonConvert.DeserializeObject<List<Event>>(jsonText);
 
-            // Suche das Event asynchron anhand seiner ID
-            var eventToAddParticipant = events.FirstOrDefault(e => e.Id == eventId);
+            // Suchen nach dem Event mit der übergebenen ID
+            Event eventToAddParticipant = events.FirstOrDefault(e => e.Id == eventId);
 
-            // Falls das Event gefunden wurde, füge den Participant hinzu
             if (eventToAddParticipant != null)
             {
-                // Überprüfe, ob der Participant bereits existiert
+                // Überprüfen, ob der Participant bereits existiert
                 if (!eventToAddParticipant.Participants.Contains(participantName))
                 {
-                    // Füge den Participant zur Liste hinzu
+                    // Hinzufügen des Participants zu dem Event
                     eventToAddParticipant.Participants.Add(participantName);
 
-                    // Serialisiere die aktualisierte Liste in JSON
+                    // Serialisieren der aktualisierten Liste in JSON
                     string updatedJsonText = JsonConvert.SerializeObject(events, Formatting.Indented);
 
-                    // Schreibe den JSON-Text asynchron zurück in die Datei
+                    // Asynchrones zurückschreiben des JSON-Texts in die Datei
                     await File.WriteAllTextAsync(jsonFilePath, updatedJsonText);
                 }
                 else
                 {
-                    // Falls der Participant bereits existiert, wirf eine Exception
+                    // Falls der Participant bereits existiert, wird eine Exception geworfen
                     throw new Exception("Teilnehmer bereits beim Event angemeldet!");
                 }
             }
             else
             {
-                // Falls das Event nicht gefunden wurde, wirf eine Exception
+                // Falls das Event nicht gefunden wurde, wird eine Exception geworfen
                 throw new Exception("Event nicht gefunden!");
             }
         }
         catch (Exception ex)
         {
-            // Behandele Fehler, z.B., wenn die Datei nicht gefunden wird
+            // Werfen einer Expcetion mit einer Fehlermeldung, falls ein Fehler auftritt
             throw new Exception($"Fehler beim Hinzufügen des Teilnehmers: {ex.Message}");
         }
     }
@@ -102,27 +101,26 @@ public class ParticipantService
     {
         try
         {
-            // Pfade und Dateinamen entsprechend deiner Struktur anpassen
+            // Pfad zur JSON-Datenbank
             string jsonFilePath = "Database/events.json";
 
-            // Lese den vorhandenen JSON-Text asynchron aus der Datei
+            // Asynchnrones Auslesen der JSON-Datenbank
             string jsonText = await File.ReadAllTextAsync(jsonFilePath);
 
-            // Deserialisiere den JSON-Text in ein List<Event>
-            var events = JsonConvert.DeserializeObject<List<Event>>(jsonText);
+            // Deserialisieren des JSON-Texts in eine List<Event>
+            List<Event> events = JsonConvert.DeserializeObject<List<Event>>(jsonText);
 
-            // Filtere die Events für den angegebenen Participant
-            var eventsForParticipant = events.Where(e => e.Participants.Contains(participantName)).ToList();
+            // Filteren der Events für den angegebenen Participant
+            List<Event> eventsForParticipant = events.Where(e => e.Participants.Contains(participantName)).ToList();
 
-            // Überschreibe alle Events in der Liste indem alle Participants gelöscht werden
+            // Überschreiben aller Events in der Liste indem alle Participants gelöscht werden
             eventsForParticipant.ForEach(e => e.Participants.Clear());
 
-            // Gib die gefilterten Events zurück
             return eventsForParticipant;
         }
         catch (Exception ex)
         {
-            // Behandele Fehler, z.B., wenn die Datei nicht gefunden wird
+            // Werfen einer Expcetion mit einer Fehlermeldung, falls ein Fehler auftritt
             throw new Exception($"Fehler beim Holen der Events für einen Teilnehmer: {ex.Message}");
         }
     }
@@ -131,38 +129,37 @@ public class ParticipantService
     {
         try
         {
-            // Pfade und Dateinamen entsprechend deiner Struktur anpassen
+            // Pfad zur JSON-Datenbank
             string jsonFilePath = "Database/events.json";
 
-            // Lese den vorhandenen JSON-Text asynchron aus der Datei
+            // Asynchnrones Auslesen der JSON-Datenbank
             string jsonText = await File.ReadAllTextAsync(jsonFilePath);
 
-            // Deserialisiere den JSON-Text in ein List<Event>
-            var events = JsonConvert.DeserializeObject<List<Event>>(jsonText);
+            // Deserialisieren des JSON-Texts in eine List<Event>
+            List<Event> events = JsonConvert.DeserializeObject<List<Event>>(jsonText);
 
-            // Suche das Event asynchron anhand seiner ID
-            var eventToRemoveParticipant = events.FirstOrDefault(e => e.Id == eventId);
+            // Suchen des Events anhand seiner ID
+            Event eventToRemoveParticipant = events.FirstOrDefault(e => e.Id == eventId);
 
-            // Falls das Event gefunden wurde, entferne den Participant
             if (eventToRemoveParticipant != null)
             {
-                // Überprüfe, ob der Participant existiert
+                // Überprüfen, ob der Participant bei dem Event existiert
                 if (eventToRemoveParticipant.Participants.Contains(participantName))
                 {
-                    // Entferne den Participant aus der Liste
+                    // Entfernen des Participants aus der Liste
                     eventToRemoveParticipant.Participants.Remove(participantName);
 
-                    // Serialisiere die aktualisierte Liste in JSON
+                    // Serialisieren der aktualisierten Liste in JSON
                     string updatedJsonText = JsonConvert.SerializeObject(events, Formatting.Indented);
 
-                    // Schreibe den JSON-Text asynchron zurück in die Datei
+                    // Asynchrones zurückschreiben des JSON-Texts in die Datei
                     await File.WriteAllTextAsync(jsonFilePath, updatedJsonText);
                 }
             }
         }
         catch (Exception ex)
         {
-            // Behandele Fehler, z.B., wenn die Datei nicht gefunden wird
+            // Werfen einer Expcetion mit einer Fehlermeldung, falls ein Fehler auftritt
             throw new Exception($"Fehler beim Entfernen des Teilnehmers in dem Event: {ex.Message}");
         }
     }

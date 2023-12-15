@@ -12,7 +12,7 @@
 <section class="events-section">
     <h4>Hier sind alle deine bevorstehenden Veranstaltungen zu sehen!</h4>
 
-    @foreach (var evt in events)
+    @foreach (Event evt in events)
     {
         <div class="event-wrapper">
             <section class="header-section">
@@ -53,13 +53,11 @@
     {
         try
         {
-            var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            AuthenticationState authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
             var user = authenticationState.User;
+            string userName = user.Identity.Name;
 
-            // Hier kannst du auf die Benutzerinformationen zugreifen
-            var userName = user.Identity.Name;
-
-            var result = await ParticipantService.GetEventsByParticipant(userName);
+            IEnumerable<Event> result = await ParticipantService.GetEventsByParticipant(userName);
             events = result.ToList();
         }
         catch (Exception ex)
@@ -73,12 +71,12 @@
     {
         try
         {
-            var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            AuthenticationState authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
             var user = authenticationState.User;
-            var userName = user.Identity.Name;
+            string userName = user.Identity.Name;
 
             await ParticipantService.RemoveParticipant(eventId, userName);
-            var result = await ParticipantService.GetEventsByParticipant(userName);
+            IEnumerable<Event> result = await ParticipantService.GetEventsByParticipant(userName);
             events = result.ToList();
             alertMessage = "Sie haben sich erfolgreich von der Veranstaltung abgemeldet!";
             ModalBootstrap.Open();

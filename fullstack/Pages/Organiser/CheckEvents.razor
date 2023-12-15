@@ -13,7 +13,7 @@
         <input type="text" class="search-input" placeholder="Veranstaltung suchen..." @oninput="HandleInput" />
     </section>
 
-    @foreach (var evt in filteredEvents)
+    @foreach (Event evt in filteredEvents)
     {
         <section class="event-wrapper">
             <div class="header-section">
@@ -26,7 +26,7 @@
             <div>
                 <span>Teilnehmer:</span>
                 <ul>
-                    @foreach (var participant in evt.Participants)
+                    @foreach (string participant in evt.Participants)
                     {
                         <li>@participant</li>
                     }
@@ -46,7 +46,7 @@
     {
         try
         {
-            var result = await OrganiserService.GetAllEvents();
+            IEnumerable<Event> result = await OrganiserService.GetAllEvents();
             events = result.ToList();
             filteredEvents = events;
         }

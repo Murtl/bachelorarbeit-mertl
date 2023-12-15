@@ -77,11 +77,13 @@
     "Participants": []
   },
   {
-    "Id": "cdf1ae76-01c9-4901-96da-9208b8852423",
-    "Name": "Was ist UI",
-    "Date": "15.01.2023",
-    "Time": "14:00 - 15:00",
-    "Description": "",
-    "Participants": []
+    "Id": "bc72dce3-a1f5-4427-beb1-9069ad5bf4f9",
+    "Name": "Blazor Streaming",
+    "Date": "15.05.2024",
+    "Time": "15:00 - 17:00",
+    "Description": "Einführung in Blazor Streaming",
+    "Participants": [
+      "mertl.user1@xitasocerberus.onmicrosoft.com"
+    ]
   }
 ]

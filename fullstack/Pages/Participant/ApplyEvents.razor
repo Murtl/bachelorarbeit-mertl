@@ -14,7 +14,7 @@
         <input type="text" class="search-input" placeholder="Veranstaltung suchen..." @oninput="HandleInput"/>
     </section>
 
-    @foreach (var evt in filteredEvents)
+    @foreach (Event evt in filteredEvents)
     {
         <div class="event-wrapper">
             <section class="header-section">
@@ -57,7 +57,7 @@
     {
         try
         {
-            var result = await ParticipantService.GetEventsWithoutParticipants();
+            IEnumerable<Event> result = await ParticipantService.GetEventsWithoutParticipants();
             events = result.ToList();
             filteredEvents = events;
         }
@@ -94,9 +94,9 @@
     {
         try
         {
-            var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            AuthenticationState authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
             var user = authenticationState.User;
-            var userName = user.Identity.Name;
+            string userName = user.Identity.Name;
 
             await ParticipantService.AddParticipant(eventId, userName);
             alertTitle = "Hinweis";

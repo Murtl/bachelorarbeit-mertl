@@ -14,7 +14,7 @@
         <button class="btn btn-primary" @onclick="OpenModal">+</button>
     </section>
 
-    @foreach (var evt in filteredEvents)
+    @foreach (Event evt in filteredEvents)
       {
           <div class="event-wrapper">
               <section class="header-section">
@@ -79,7 +79,7 @@
     {
         try
         {
-            var result = await OrganiserService.GetAllEvents();
+            IEnumerable<Event> result = await OrganiserService.GetAllEvents();
             events = result.ToList();
             filteredEvents = events;
         }
