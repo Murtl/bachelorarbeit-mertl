@@ -11,7 +11,7 @@
         <input type="text" class="search-input" id="searchInput" placeholder="Veranstaltung suchen..." oninput="filterEvents()"/>
     </section>
 
-    @foreach (var evt in ViewData["EventData"] as IEnumerable<EventModel> ?? Enumerable.Empty<EventModel>())
+    @foreach (EventModel evt in ViewData["EventData"] as IEnumerable<EventModel> ?? Enumerable.Empty<EventModel>())
     {
         <section class="event-wrapper">
             <div class="header-section">
@@ -24,7 +24,7 @@
             <div>
                 <span>Teilnehmer:</span>
                 <ul>
-                    @foreach (var participant in evt.Participants ?? new List<string>())
+                    @foreach (string participant in evt.Participants ?? new List<string>())
                     {
                         <li>@participant</li>
                     }

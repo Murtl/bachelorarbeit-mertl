@@ -9,7 +9,7 @@
 <section class="events-section">
     <h4>Hier sind alle deine bevorstehenden Veranstaltungen zu sehen!</h4>
 
-    @foreach (var evt in ViewData["EventData"] as IEnumerable<EventModel> ?? Enumerable.Empty<EventModel>())
+    @foreach (EventModel evt in ViewData["EventData"] as IEnumerable<EventModel> ?? Enumerable.Empty<EventModel>())
     {
         <div class="event-wrapper">
             <section class="header-section">

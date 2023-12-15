@@ -27,30 +27,30 @@ namespace mpa.Controllers
         {
             try
             {
-                // Pfade und Dateinamen entsprechend deiner Struktur anpassen
+                // Pfad zur JSON-Datenbank
                 string jsonFilePath = "Database/Events.json";
 
-                // Lese den JSON-Text asynchron aus der Datei
+                // Asynchnrones Auslesen der JSON-Datenbank
                 string jsonText = await System.IO.File.ReadAllTextAsync(jsonFilePath);
 
-                // Deserialisiere den JSON-Text in ein Array von Event-Objekten
-                var events = JsonConvert.DeserializeObject<EventModel[]>(jsonText);
+                // Deserialisieren des JSON-Texts in eine List<Event>
+                List<EventModel> events = JsonConvert.DeserializeObject<List<EventModel>>(jsonText);
 
-                // Projiziere die Events auf eine neue Klasse ohne das Feld Participants
-                var eventsWithoutParticipants = events.Select(e => new EventModel
+                // Projizieren der Events auf eine neue Liste ohne das Feld Participants
+                List<EventModel> eventsWithoutParticipants = events.Select(e => new EventModel
                 {
                     Id = e.Id,
                     Name = e.Name,
                     Date = e.Date,
                     Time = e.Time,
                     Description = e.Description
-                }).ToArray();
+                }).ToList();
 
                 return eventsWithoutParticipants;
             }
             catch (Exception ex)
             {
-                // Behandele Fehler, z.B., wenn die Datei nicht gefunden wird
+                // Werfen einer Expcetion mit einer Fehlermeldung, falls ein Fehler auftritt
                 throw new Exception($"Fehler beim Abrufen der Events: {ex.Message}");
             }
         }
@@ -60,35 +60,33 @@ namespace mpa.Controllers
         {
             try
             {
-                // Pfade und Dateinamen entsprechend deiner Struktur anpassen
+                // Pfad zur JSON-Datenbank
                 string jsonFilePath = "Database/events.json";
 
-                // Lese den vorhandenen JSON-Text asynchron aus der Datei
+                // Asynchnrones Auslesen der JSON-Datenbank
                 string jsonText = await System.IO.File.ReadAllTextAsync(jsonFilePath);
 
-                // Deserialisiere den JSON-Text in ein List<Event>
-                var events = JsonConvert.DeserializeObject<List<EventModel>>(jsonText);
+                // Deserialisieren des JSON-Texts in eine List<Event>
+                List<EventModel> events = JsonConvert.DeserializeObject<List<EventModel>>(jsonText);
 
-                // Filtere die Events für den angegebenen Participant
-                var eventsForParticipant = events.Where(e => e.Participants.Contains(participantName)).ToList();
+                // Filteren der Events für den angegebenen Participant
+                List<EventModel> eventsForParticipant = events.Where(e => e.Participants.Contains(participantName)).ToList();
 
-                // Projiziere die Events auf eine neue Klasse ohne das Feld Participants
-                var eventsWithoutParticipants = eventsForParticipant.Select(e => new EventModel
+                // Projizieren der Events auf eine neue Liste ohne das Feld Participants
+                List<EventModel> eventsWithoutParticipants = eventsForParticipant.Select(e => new EventModel
                 {
                     Id = e.Id,
                     Name = e.Name,
                     Date = e.Date,
                     Time = e.Time,
                     Description = e.Description
-                }).ToArray();
+                }).ToList();
 
-                // Gib die gefilterten Events zurück
                 return eventsWithoutParticipants;
             }
             catch (Exception ex)
             {
-                // Behandele Fehler, z.B., wenn die Datei nicht gefunden wird
-                // Du könntest auch einfach einen leeren List<Event> zurückgeben oder null
+                // Werfen einer Expcetion mit einer Fehlermeldung, falls ein Fehler auftritt
                 throw new Exception($"Fehler beim Holen der Events für einen Teilnehmer: {ex.Message}");
             }
         }
@@ -99,48 +97,48 @@ namespace mpa.Controllers
         {
             try
             {
-                // Pfade und Dateinamen entsprechend deiner Struktur anpassen
+                // Pfad zur JSON-Datenbank
                 string jsonFilePath = "Database/events.json";
 
-                // Lese den vorhandenen JSON-Text asynchron aus der Datei
+                // Asynchnrones Auslesen der JSON-Datenbank
                 string jsonText = await System.IO.File.ReadAllTextAsync(jsonFilePath);
 
-                // Deserialisiere den JSON-Text in ein List<Event> asynchron
-                var events = JsonConvert.DeserializeObject<List<EventModel>>(jsonText);
+                // Deserialisieren des JSON-Texts in eine List<Event>
+                List<EventModel> events = JsonConvert.DeserializeObject<List<EventModel>>(jsonText);
 
-                // Suche das Event asynchron anhand seiner ID
-                var eventToAddParticipant = events.FirstOrDefault(e => e.Id == eventId);
+                // Suchen nach dem Event mit der übergebenen ID
+                EventModel eventToAddParticipant = events.FirstOrDefault(e => e.Id == eventId);
 
-                // Falls das Event gefunden wurde, füge den Participant hinzu
                 if (eventToAddParticipant != null)
                 {
-                    // Überprüfe, ob der Participant bereits existiert
+                    // Überprüfen, ob der Participant bereits existiert
                     if (!eventToAddParticipant.Participants.Contains(User.Identity.Name))
                     {
-                        // Füge den Participant zur Liste hinzu
+                        // Hinzufügen des Participants zu dem Event
                         eventToAddParticipant.Participants.Add(User.Identity.Name);
 
-                        // Serialisiere die aktualisierte Liste in JSON
+                        // Serialisieren der aktualisierten Liste in JSON
                         string updatedJsonText = JsonConvert.SerializeObject(events, Formatting.Indented);
 
-                        // Schreibe den JSON-Text asynchron zurück in die Datei
+                        // Asynchrones zurückschreiben des JSON-Texts in die Datei
                         await System.IO.File.WriteAllTextAsync(jsonFilePath, updatedJsonText);
                     }
                     else
                     {
+                        // Falls der Participant bereits existiert, wird eine Exception geworfen
                         throw new Exception("Teilnehmer bereits beim Event angemeldet!");
                     }
                 }
                 else
                 {
+                    // Falls das Event nicht gefunden wurde, wird eine Exception geworfen
                     throw new Exception("Event nicht gefunden!");
                 }
-
                 return RedirectToAction("ApplyEvents");
             }
             catch (Exception ex)
             {
-                // Behandele Fehler, z.B., wenn die Datei nicht gefunden wird
+                // Werfen einer Expcetion mit einer Fehlermeldung, falls ein Fehler auftritt
                 throw new Exception($"Fehler beim Hinzufügen des Teilnehmers: {ex.Message}");
             }
         }
@@ -151,31 +149,30 @@ namespace mpa.Controllers
         {
             try
             {
-                // Pfade und Dateinamen entsprechend deiner Struktur anpassen
+                // Pfad zur JSON-Datenbank
                 string jsonFilePath = "Database/events.json";
 
-                // Lese den vorhandenen JSON-Text asynchron aus der Datei
+                // Asynchnrones Auslesen der JSON-Datenbank
                 string jsonText = await System.IO.File.ReadAllTextAsync(jsonFilePath);
 
-                // Deserialisiere den JSON-Text in ein List<Event>
-                var events = JsonConvert.DeserializeObject<List<EventModel>>(jsonText);
+                // Deserialisieren des JSON-Texts in eine List<Event>
+                List<EventModel> events = JsonConvert.DeserializeObject<List<EventModel>>(jsonText);
 
-                // Suche das Event asynchron anhand seiner ID
-                var eventToRemoveParticipant = events.FirstOrDefault(e => e.Id == eventId);
+                // Suchen des Events anhand seiner ID
+                EventModel eventToRemoveParticipant = events.FirstOrDefault(e => e.Id == eventId);
 
-                // Falls das Event gefunden wurde, entferne den Participant
                 if (eventToRemoveParticipant != null)
                 {
-                    // Überprüfe, ob der Participant existiert
+                    // Überprüfen, ob der Participant bei dem Event existiert
                     if (eventToRemoveParticipant.Participants.Contains(User.Identity.Name))
                     {
-                        // Entferne den Participant aus der Liste
+                        // Entfernen des Participants aus der Liste
                         eventToRemoveParticipant.Participants.Remove(User.Identity.Name);
 
-                        // Serialisiere die aktualisierte Liste in JSON
+                        // Serialisieren der aktualisierten Liste in JSON
                         string updatedJsonText = JsonConvert.SerializeObject(events, Formatting.Indented);
 
-                        // Schreibe den JSON-Text asynchron zurück in die Datei
+                        // Asynchrones zurückschreiben des JSON-Texts in die Datei
                         await System.IO.File.WriteAllTextAsync(jsonFilePath, updatedJsonText);
                     }
                 }
@@ -183,7 +180,7 @@ namespace mpa.Controllers
             }
             catch (Exception ex)
             {
-                // Behandele Fehler, z.B., wenn die Datei nicht gefunden wird
+                // Werfen einer Expcetion mit einer Fehlermeldung, falls ein Fehler auftritt
                 throw new Exception($"Fehler beim Entfernen des Teilnehmers in dem Event: {ex.Message}");
             }
         }
@@ -191,12 +188,20 @@ namespace mpa.Controllers
         // Die Methode SortEventsByDate() sortiert die Events nach Datum aufsteigend
         private IEnumerable<EventModel> SortEventsByDate(IEnumerable<EventModel> events)
         {
-            // Sortiere die Events nach Datum aufsteigend und behandele Null-Werte
-            var sortedEvents = events.OrderBy(e => e.Date != null
-                ? DateTime.ParseExact(e.Date, "dd.MM.yyyy", CultureInfo.InvariantCulture)
-                : DateTime.MaxValue);
+            try
+            {
+                // Sortieren der Events nach Datum aufsteigend
+                List<EventModel> sortedEvents = events.OrderBy(e => e.Date != null
+                    ? DateTime.ParseExact(e.Date, "dd.MM.yyyy", CultureInfo.InvariantCulture)
+                    : DateTime.MaxValue).ToList();
 
-            return sortedEvents;
+                return sortedEvents;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Events konnten nicht sortiert werden, da eine fehlerhafte Eingabe für das Datum vorliegt in einem Event!");
+                return events;
+            }
         }
     }
 }

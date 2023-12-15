@@ -22,22 +22,17 @@ public class ParticipantService
             // Asynchnrones Auslesen der JSON-Datenbank
             string jsonText = await File.ReadAllTextAsync(jsonFilePath);
 
-            // Deserialisieren des JSON-Texts in einen Array von Event-Objekten
-            Event[] events = JsonConvert.DeserializeObject<Event[]>(jsonText);
+            // Deserialisieren des JSON-Texts in eine List<Event>
+            List<Event> events = JsonConvert.DeserializeObject<List<Event>>(jsonText);
 
             // Überschreiben aller Events in der Liste indem alle Participants gelöscht werden
-            Event[] eventsWithoutParticipants = events.Select(e =>
+            List<Event> eventsWithoutParticipants = events.Select(e =>
             {
                 e.Participants = new List<string>();
                 return e;
-            }).ToArray();
+            }).ToList();
 
-            // Sortieren der Events nach Datum aufsteigend
-            Event[] sortedEventsWithoutParticipants = eventsWithoutParticipants.OrderBy(e => e.Date != ""
-                ? DateTime.ParseExact(e.Date, "dd.MM.yyyy", CultureInfo.InvariantCulture)
-                : DateTime.MaxValue).ToArray();
-
-            return sortedEventsWithoutParticipants;
+            return SortEventsByDate(eventsWithoutParticipants);
         }
         catch (Exception ex)
         {
@@ -116,7 +111,7 @@ public class ParticipantService
             // Überschreiben aller Events in der Liste indem alle Participants gelöscht werden
             eventsForParticipant.ForEach(e => e.Participants.Clear());
 
-            return eventsForParticipant;
+            return SortEventsByDate(eventsForParticipant);
         }
         catch (Exception ex)
         {
@@ -161,6 +156,26 @@ public class ParticipantService
         {
             // Werfen einer Expcetion mit einer Fehlermeldung, falls ein Fehler auftritt
             throw new Exception($"Fehler beim Entfernen des Teilnehmers in dem Event: {ex.Message}");
+        }
+    }
+
+
+    // Die Methode SortEventsByDate() sortiert die Events nach Datum aufsteigend
+    private IEnumerable<Event> SortEventsByDate(IEnumerable<Event> events)
+    {
+        try
+        {
+            // Sortieren der Events nach Datum aufsteigend
+            List<Event> sortedEvents = events.OrderBy(e => e.Date != null
+                ? DateTime.ParseExact(e.Date, "dd.MM.yyyy", CultureInfo.InvariantCulture)
+                : DateTime.MaxValue).ToList();
+
+            return sortedEvents;
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("Events konnten nicht sortiert werden, da eine fehlerhafte Eingabe für das Datum vorliegt in einem Event!");
+            return events;
         }
     }
 }

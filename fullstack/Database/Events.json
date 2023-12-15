@@ -85,5 +85,13 @@
     "Participants": [
       "mertl.user1@xitasocerberus.onmicrosoft.com"
     ]
+  },
+  {
+    "Id": "a42847f6-be33-4d5c-88a3-459db65eb0b5",
+    "Name": "Neue Schulung",
+    "Date": "15.09.2024",
+    "Time": "15:00 - 17:00",
+    "Description": "test",
+    "Participants": []
   }
 ]

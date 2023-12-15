@@ -20,15 +20,22 @@ namespace fullstack.Services
                 // Asynchnrones Auslesen der JSON-Datenbank
                 string jsonText = await File.ReadAllTextAsync(jsonFilePath);
 
-                // Deserialisieren des JSON-Texts in einen Array von Event-Objekten
-                Event[] events = JsonConvert.DeserializeObject<Event[]>(jsonText);
+                // Deserialisieren des JSON-Texts in eine List<Event>
+                List<Event> events = JsonConvert.DeserializeObject<List<Event>>(jsonText);
 
-                // Sortieren der Events nach Datum aufsteigend
-                Event[] sortedEvents = events.OrderBy(e => e.Date != ""
-                    ? DateTime.ParseExact(e.Date, "dd.MM.yyyy", CultureInfo.InvariantCulture)
-                    : DateTime.MaxValue).ToArray();
-
-                return sortedEvents;
+                try
+                {
+                    // Sortieren der Events nach Datum aufsteigend
+                    List<Event> sortedEvents = events.OrderBy(e => e.Date != ""
+                        ? DateTime.ParseExact(e.Date, "dd.MM.yyyy", CultureInfo.InvariantCulture)
+                        : DateTime.MaxValue).ToList();
+                    return sortedEvents;
+                }
+                catch(Exception)
+                {
+                    Console.WriteLine("Events konnten nicht sortiert werden, da eine fehlerhafte Eingabe für das Datum vorliegt in einem Event!");
+                    return events;
+                }
             }
             catch (Exception ex)
             {
