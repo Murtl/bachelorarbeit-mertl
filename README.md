@@ -2,7 +2,7 @@
 Dieses Repo beinhaltet alle durchgeführten Experimente in meiner Bachelorarbeit "Ist die Trennung zwischen Frontend und Backend in webbasierten Systemen noch zeitgemäß?".
 
 # Kurze Erklärung
-Die Ordner spiegeln die drei durchgeführten Expirmente in der Bachelorarbeit wieder. Es wurde dieselbe Anwendung mit drei unterschiedlichen Architekturen und Ansätzen entwickelt.
+Die Ordner spiegeln die drei durchgeführten Experimente in der Bachelorarbeit wieder. Es wurde dieselbe Anwendung mit drei unterschiedlichen Architekturen und Ansätzen entwickelt.
 Bei dem Anwendungsfall ging es um das Erstellen einer Schulungsanwendung für die "Schalk Maschinen GmbH" bei der Mitarbeiter über ihre Microsoft Accounts Zugriff bekommen.
 
 # Ausführen der Anwendungen
