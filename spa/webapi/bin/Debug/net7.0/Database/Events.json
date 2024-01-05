@@ -74,7 +74,9 @@
     "Date": "01.01.2024",
     "Time": "10:00 - 11:00",
     "Description": "",
-    "Participants": []
+    "Participants": [
+      "mertl.user1@xitasocerberus.onmicrosoft.com"
+    ]
   },
   {
     "Id": "9b317608-d7e5-4689-83df-38f6ed6688cd",

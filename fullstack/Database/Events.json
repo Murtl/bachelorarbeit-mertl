@@ -56,7 +56,9 @@
     "Date": "25.09.2024",
     "Time": "15:00",
     "Description": "Schulung über verschiedene User Interfaces",
-    "Participants": []
+    "Participants": [
+      "mertl.user1@xitasocerberus.onmicrosoft.com"
+    ]
   },
   {
     "Id": "7034aa0d-a42d-4a54-b2ab-8cb77344c579",

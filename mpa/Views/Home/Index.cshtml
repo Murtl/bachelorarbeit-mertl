@@ -12,4 +12,9 @@
     {
         <p>Als Teilnehmer können Sie hier Veranstaltungen buchen und ansehen.</p>
     }
+    @if (!User.IsInRole("Task.Create") && !User.IsInRole("Task.Apply"))
+    {
+        <p>Es werden keine zusätzlichen Tabs angezeigt, da Sie entweder über keine Rolle oder die falsche Rolle verfügen. 
+            Bitte nehmen Sie umgehend Kontakt mit Ihrer IT-Abteilung auf, um die entsprechende Rolle zu erhalten. Nur so können Sie mit diesem Schulungsportal interagieren.</p>
+    }
 </div>
