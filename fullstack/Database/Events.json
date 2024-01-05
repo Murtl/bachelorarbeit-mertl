@@ -57,7 +57,8 @@
     "Time": "15:00",
     "Description": "Schulung über verschiedene User Interfaces",
     "Participants": [
-      "mertl.user1@xitasocerberus.onmicrosoft.com"
+      "mertl.user1@xitasocerberus.onmicrosoft.com",
+      "mertl.user2@xitasocerberus.onmicrosoft.com"
     ]
   },
   {
@@ -67,7 +68,8 @@
     "Time": "15:00 - 16:00",
     "Description": "Einführung in Blazor Server",
     "Participants": [
-      "mertl.user1@xitasocerberus.onmicrosoft.com"
+      "mertl.user1@xitasocerberus.onmicrosoft.com",
+      "mertl.user2@xitasocerberus.onmicrosoft.com"
     ]
   },
   {

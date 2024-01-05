@@ -8,19 +8,29 @@
 <section class="events-section">
     <h3>Herzlich Willkommen bei dem Schulungsportal der Schalk Maschinen GmbH!</h3>
 
-    <AuthorizeView Roles="Task.Create">
+    <AuthorizeView Roles="Task.Create, Task.Apply">
         <Authorized>
-            <div>
-                <p>Als Organisator können Sie hier neue Veranstaltungen erstellen und Teilnehmerzahlen ansehen.</p>
-            </div>
+            @{
+                if (context.User.IsInRole("Task.Create")){
+                    <div>
+                        <p>Als Organisator können Sie hier neue Veranstaltungen erstellen und Teilnehmerzahlen ansehen.</p>
+                    </div>
+                }
+                else
+                {
+                    <div>
+                        <p>Als Teilnehmer können Sie hier Veranstaltungen buchen und ansehen.</p>
+                    </div>
+                }
+            }
         </Authorized>
-    </AuthorizeView>
-
-    <AuthorizeView Roles="Task.Apply">
-        <Authorized>
+        <NotAuthorized>
             <div>
-                <p>Als Teilnehmer können Sie hier Veranstaltungen buchen und ansehen.</p>
+                <p>
+                    Es werden keine zusätzlichen Tabs angezeigt, da Sie entweder über keine Rolle oder die falsche Rolle verfügen.
+                    Bitte nehmen Sie umgehend Kontakt mit Ihrer IT-Abteilung auf, um die entsprechende Rolle zu erhalten. Nur so können Sie mit diesem Schulungsportal interagieren.
+                </p>
             </div>
-        </Authorized>
+        </NotAuthorized>
     </AuthorizeView>
 </section>
