@@ -3,7 +3,6 @@ import { msalInstance } from "@/auth/msalConfig";
 import { useUserStore } from "@/stores/userStore";
 import { onMounted } from "vue";
 import { useEventStore } from "@/stores/eventStore";
-import router from "@/routes";
 
 const eventStore = useEventStore();
 
@@ -12,12 +11,8 @@ const userStore = useUserStore();
 onMounted(async () => {
   await msalInstance.initialize();
   const cookieAccounts = msalInstance.getAllAccounts();
-  if (
-    cookieAccounts.length > 0 &&
-    cookieAccounts[0].idTokenClaims &&
-    cookieAccounts[0].idTokenClaims.roles
-  ) {
-    userStore.userRole = cookieAccounts[0].idTokenClaims.roles[0];
+  if (cookieAccounts.length > 0 && cookieAccounts[0].idTokenClaims) {
+    userStore.userRole = cookieAccounts[0].idTokenClaims.roles?.[0] ?? "";
     userStore.loggedIn = true;
     userStore.userName = cookieAccounts[0].username;
     if (userStore.userRole === "Task.Create") {
@@ -25,7 +20,6 @@ onMounted(async () => {
     } else if (userStore.userRole === "Task.Apply") {
       await eventStore.getEventsWithoutParticipants();
     }
-    await router.push("/");
   } else {
     userStore.loggedIn = false;
     userStore.userRole = "";
@@ -55,7 +49,6 @@ async function login() {
     } else if (userStore.userRole === "Task.Apply") {
       await eventStore.getEventsWithoutParticipants();
     }
-    await router.push("/");
   } catch (error) {
     console.error("Fehler bei der Anmeldung", error);
   }

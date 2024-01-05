@@ -9,7 +9,8 @@
       "Max",
       "Moritz",
       "Erika",
-      "mertl.user1@xitasocerberus.onmicrosoft.com"
+      "mertl.user1@xitasocerberus.onmicrosoft.com",
+      "mertl.user2@xitasocerberus.onmicrosoft.com"
     ]
   },
   {
@@ -57,7 +58,9 @@
     "Date": "25.09.2024",
     "Time": "15:00",
     "Description": "Schulung über verschiedene User Interfaces",
-    "Participants": []
+    "Participants": [
+      "mertl.user2@xitasocerberus.onmicrosoft.com"
+    ]
   },
   {
     "Id": "4bac61db-c898-4b40-87e9-c0139e0ca52a",
